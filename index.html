@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BuffStore Studio</title>
+  <style>
+    :root {
+      --bg: #000000;
+      --text: #ffffff;
+      --muted: #d8d8d8;
+      --hover: #9f9f9f;
+      --sidebar-left: 42px;
+      --sidebar-top: 68px;
+      --sidebar-width: 238px;
+      --content-left-gap: 82px;
+      --content-top: 72px;
+      --content-right: 64px;
+      --grid-gap-x: 126px;
+      --grid-gap-y: 106px;
+      --body-size: 17px;
+      --title-size: 20px;
+      --small-size: 15px;
+      --line-height: 1.22;
+      --logo-width: 168px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      font-size: var(--body-size);
+      line-height: var(--line-height);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.14s ease;
+    }
+
+    a:hover,
+    button:hover {
+      color: var(--hover);
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 0;
+    }
+
+    .page {
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: var(--sidebar-top);
+      left: var(--sidebar-left);
+      width: var(--sidebar-width);
+      height: calc(100vh - var(--sidebar-top) - 26px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 20;
+    }
+
+    .sidebar-main {
+      min-height: 0;
+    }
+
+    .logo {
+      display: block;
+      width: var(--logo-width);
+      line-height: 0;
+      margin-bottom: 26px;
+      margin-left: 0;
+      padding-left: 0;
+    }
+
+    .logo img {
+      width: 100%;
+      object-fit: contain;
+    }
+
+    .nav-group {
+      margin-bottom: 34px;
+    }
+
+    .group-title,
+    .group-link {
+      display: block;
+      font-size: var(--body-size);
+      font-weight: 400;
+      margin-bottom: 5px;
+    }
+
+    .nav-list {
+      list-style: none;
+    }
+
+    .nav-list li {
+      margin-bottom: 3px;
+    }
+
+    .nav-link {
+      display: inline-block;
+      font-size: var(--body-size);
+      font-weight: 400;
+      line-height: 1.18;
+      white-space: nowrap;
+    }
+
+    .sidebar-footer {
+      font-size: var(--small-size);
+      line-height: 1.3;
+      color: var(--muted);
+      padding-top: 18px;
+    }
+
+    .hero-title {
+      position: relative;
+      margin-left: calc(var(--sidebar-left) + var(--sidebar-width) + var(--content-left-gap));
+      padding-top: 18px;
+      padding-right: var(--content-right);
+      font-size: clamp(84px, 13vw, 220px);
+      line-height: 0.88;
+      letter-spacing: -0.06em;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: none;
+      word-break: break-word;
+    }
+
+    .hero-title span {
+      display: block;
+    }
+
+    .content {
+      margin-left: calc(var(--sidebar-left) + var(--sidebar-width) + var(--content-left-gap));
+      padding-top: var(--content-top);
+      padding-right: var(--content-right);
+      padding-bottom: 80px;
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: minmax(360px, 1fr) minmax(360px, 1fr);
+      column-gap: var(--grid-gap-x);
+      align-items: start;
+    }
+
+    .works-col {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--grid-gap-y);
+    }
+
+    .works-col.right {
+      padding-top: 199px;
+    }
+
+    .work-card {
+      display: block;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      will-change: opacity, transform;
+    }
+
+    .work-card.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .work-card.out-view {
+      opacity: 0.22;
+      transform: translateY(8px);
+    }
+
+    .work-media {
+      background: transparent;
+      overflow: hidden;
+    }
+
+    .work-media.w-1 { width: 605px; }
+    .work-media.w-2 { width: 583px; }
+    .work-media.w-3 { width: 463px; }
+    .work-media.w-4 { width: 696px; }
+    .work-media.w-5 { width: 715px; }
+    .work-media.w-6 { width: 547px; }
+    .work-media.w-7 { width: 607px; }
+    .runaway-large {
+      transform: none;
+      transform-origin: top left;
+      margin-bottom: 0;
+      z-index: 1;
+      position: relative;
+    }
+
+    .runaway-small {
+      transform: none;
+      transform-origin: top left;
+      margin-bottom: 0;
+      position: relative;
+    }
+
+    .work-title {
+      margin-top: 0;
+      margin-bottom: 14px;
+      font-size: var(--title-size);
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.16;
+    }
+
+    .mobile-header {
+      display: none;
+    }
+
+    @media (max-width: 1320px) {
+      :root {
+        --sidebar-left: 26px;
+        --sidebar-width: 214px;
+        --content-left-gap: 52px;
+        --grid-gap-x: 70px;
+      }
+
+      .work-media.w-1,
+      .work-media.w-2,
+      .work-media.w-3,
+      .work-media.w-4,
+      .work-media.w-5,
+      .work-media.w-6,
+      .work-media.w-7 {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        display: none;
+      }
+
+      .mobile-header {
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(0, 0, 0, 0.98);
+        padding: 20px 18px 14px;
+      }
+
+      .mobile-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .mobile-logo {
+        width: 132px;
+        line-height: 0;
+      }
+
+      .mobile-logo img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .mobile-toggle {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .mobile-menu {
+        display: none;
+        padding-top: 14px;
+      }
+
+      .mobile-menu.open {
+        display: block;
+      }
+
+      .mobile-menu .nav-group {
+        margin-bottom: 24px;
+      }
+
+      .mobile-menu .sidebar-footer {
+        padding-top: 12px;
+      }
+
+      .hero-title {
+        margin-left: 0;
+        padding: 8px 18px 10px;
+        font-size: clamp(56px, 16vw, 110px);
+      }
+
+      .content {
+        margin-left: 0;
+        padding: 18px 18px 36px;
+      }
+
+      .works-grid {
+        grid-template-columns: 1fr;
+        column-gap: 0;
+      }
+
+      .works-col {
+        gap: 34px;
+      }
+
+      .works-col.right {
+        padding-top: 0;
+      }
+
+      .work-media,
+      .work-media.w-1,
+      .work-media.w-2,
+      .work-media.w-3,
+      .work-media.w-4,
+      .work-media.w-5,
+      .work-media.w-6,
+      .work-media.w-7 {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="mobile-header">
+    <div class="mobile-bar">
+      <a href="#top" class="mobile-logo" aria-label="Buff Store Studio Home">
+        <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/logo2-black.png" alt="Buff Store Studio logo" />
+      </a>
+      <button class="mobile-toggle" id="mobileToggle" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="nav-group">
+        <div class="group-title">New</div>
+          <ul class="nav-list">
+            <li><a class="nav-link" href="#project-0">Toyota | Supra</a></li>
+            <li><a class="nav-link" href="#project-7">LINING | LIREN 6</a></li>
+            <li><a class="nav-link" href="#project-1">Serova | Ziyu</a></li>
+            <li><a class="nav-link" href="#project-11">LININIG | LIREN 5V2</a></li>
+            <li><a class="nav-link" href="#project-3">AIR&A-lin | 《Skyline》</a></li>
+            <li><a class="nav-link" href="#project-4">Apple | Wang Feifei 《Runaway》</a></li>
+            <li><a class="nav-link" href="#project-6">Fu Sheng Yi Ling Long | Luo Yunxi</a></li>
+            <li><a class="nav-link" href="#project-10">Angela Chang | "Miguang World Tour"</a></li>
+            <li><a class="nav-link" href="#project-12">Angela Chang | "Muggle"</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="group-title">Selected</div>
+          <ul class="nav-list">
+            <li><a class="nav-link" href="#project-8">Panasonic | heater 2025</a></li>
+            <li><a class="nav-link" href="#project-2">Flyco | Wang Yibo</a></li>
+            <li><a class="nav-link" href="#project-13">AromeManpo</a></li>
+            <li><a class="nav-link" href="#project-5">McDonald’s | The Powerpuff Girls</a></li>
+          </ul>
+        </div>
+
+      <div class="nav-group">
+        <a class="group-link" href="#">All Projects</a>
+      </div>
+
+      <div class="nav-group">
+          <a class="group-link" href="#">Info</a>
+          <a class="group-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
+          <a class="group-link" href="#" target="_blank" rel="noreferrer">Red Book</a>
+          <a class="group-link" href="#" target="_blank" rel="noreferrer">TikTok</a>
+        </div>
+
+      <div class="sidebar-footer">©2025 Buff Store Studio</div>
+    </div>
+  </header>
+
+  <div class="page">
+    <aside class="sidebar">
+      <div class="sidebar-main">
+        <a href="#top" class="logo" aria-label="Buff Store Studio Home">
+          <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/logo2-black.png" alt="Buff Store Studio logo" />
+        </a>
+
+        <div class="nav-group">
+        <div class="group-title">New</div>
+          <ul class="nav-list">
+            <li><a class="nav-link" href="#project-0">Toyota | Supra</a></li>
+            <li><a class="nav-link" href="#project-7">LINING | LIREN 6</a></li>
+            <li><a class="nav-link" href="#project-1">Serova | Ziyu</a></li>
+            <li><a class="nav-link" href="#project-11">LININIG | LIREN 5V2</a></li>
+            <li><a class="nav-link" href="#project-3">AIR&A-lin | 《Skyline》</a></li>
+            <li><a class="nav-link" href="#project-4">Apple | Wang Feifei 《Runaway》</a></li>
+            <li><a class="nav-link" href="#project-6">Fu Sheng Yi Ling Long | Luo Yunxi</a></li>
+            <li><a class="nav-link" href="#project-10">Angela Chang | "Miguang World Tour"</a></li>
+            <li><a class="nav-link" href="#project-12">Angela Chang | "Muggle"</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <div class="group-title">Selected</div>
+          <ul class="nav-list">
+            <li><a class="nav-link" href="#project-8">Panasonic | heater 2025</a></li>
+            <li><a class="nav-link" href="#project-2">Flyco | Wang Yibo</a></li>
+            <li><a class="nav-link" href="#project-13">AromeManpo</a></li>
+            <li><a class="nav-link" href="#project-5">McDonald’s | The Powerpuff Girls</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <a class="group-link" href="#">All Projects</a>
+        </div>
+
+        <div class="nav-group">
+          <a class="group-link" href="#">Info</a>
+          <a class="group-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
+          <a class="group-link" href="#" target="_blank" rel="noreferrer">Red Book</a>
+          <a class="group-link" href="#" target="_blank" rel="noreferrer">TikTok</a>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">©2025 Buff Store Studio</div>
+    </aside>
+
+    <section class="hero-title" aria-label="Site title">
+      <span>BuffStore</span>
+    </section>
+
+    <main class="content" id="top">
+      <section class="works-grid" aria-label="Portfolio projects">
+        <div class="works-col left">
+          <article class="work-card" id="project-0">
+            <a href="#project-0">
+              <h2 class="work-title">Toyota | Supra</h2>
+              <div class="work-media w-1">
+                <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/pic/Supra/Supra.jpg" alt="Toyota | Supra" />
+              </div>
+            </a>
+          </article>
+
+          <article class="work-card" id="project-1">
+            <a href="#project-1">
+              <h2 class="work-title">Serova | Ziyu</h2>
+              <div class="work-media w-1">
+                <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/GIF/Serova_01.gif" alt="Serova | Ziyu" />
+              </div>
+            </a>
+          </article>
+
+          <article class="work-card" id="project-3">
+            <a href="#project-3">
+              <h2 class="work-title">AIR&A-lin | 《Skyline》</h2>
+              <div class="work-media w-4">
+                <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/pic/skyline_01.png" alt="AIR&A-lin | 《Skyline》" />
+              </div>
+            </a>
+          </article>
+
+          <article class="work-card" id="project-6">
+            <a href="#project-6">
+              <h2 class="work-title">Fu Sheng Yi Ling Long | Luo Yunxi</h2>
+              <div class="work-media w-5">
+                <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/pic/fushengyilinglong/FSYLL_long_01.png" alt="Fu Sheng Yi Ling Long | Luo Yunxi" />
+              </div>
+            </a>
+          </article>
+
+          <article class="work-card" id="project-12">
+            <a href="#project-12">
+              <h2 class="work-title">Angela Chang | "Muggle"</h2>
+              <div class="work-media w-4">
+                <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/pic/miguang/ZSH_LONG_02.jpg" alt="Angela Chang | Muggle" />
+              </div>
+            </a>
+          </article>
+
+          <article class="work-card" id="project-2">
+            <a href="#project-2">
+              <h2 class="work-title">Flyco | Wang Yibo</h2>
+              <div class="work-media w-2">
+                <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/GIF/flyco_01.gif" alt="Flyco | Wang Yibo" />
+              </div>
+            </a>
+          </article>
+
+          </div>
+
+        <div class="works-col right">
+          <article class="work-card" id="project-7">
+            <a href="#project-7">
+              <h2 class="work-title">LINING | LIREN 6</h2>
+              <div class="work-media w-1">
+                <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/pic/liren6/liren6_zong.jpg" alt="LINING | LIREN 6" />
+              </div>
+            </a>
+          </article>
+
+          <article class="work-card" id="project-11">
+            <a href="#project-11">
+              <h2 class="work-title">LININIG | LIREN 5V2</h2>
+              <div class="work-media w-1">
+                <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/GIF/lining_liren5_01.gif" alt="LININIG | LIREN 5V2" />
+              </div>
+            </a>
+          </article>
+
+          <article class="work-card" id="project-4">
+            <a href="#project-4">
+              <h2 class="work-title">Apple | Wang Feifei 《Runaway》</h2>
+              <div class="work-media w-3 runaway-small">
+                <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/GIF/RUNAWAY_MV_4K_MOV_1219.gif" alt="Apple | Wang Feifei 《Runaway》" />
+              </div>
+            </a>
+          </article>
+
+          <article class="work-card" id="project-10">
+            <a href="#project-10">
+              <h2 class="work-title">Angela Chang | "Miguang World Tour"</h2>
+              <div class="work-media w-2">
+                <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/pic/miguang/ZSH_LONG_01.jpg" alt="Angela Chang | Miguang World Tour" />
+              </div>
+            </a>
+          </article>
+
+          <article class="work-card" id="project-8">
+            <a href="#project-8">
+              <h2 class="work-title">Panasonic | heater 2025</h2>
+              <div class="work-media w-7">
+                <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/pic/Panasonic/panasonic_01.png" alt="Panasonic | heater 2025" />
+              </div>
+            </a>
+          </article>
+
+          <article class="work-card" id="project-13">
+            <a href="#project-13">
+              <h2 class="work-title">AromeManpo</h2>
+              <div class="work-media w-5">
+                <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/pic/FUYUMANPU.jpg" alt="AromeManpo" />
+              </div>
+            </a>
+          </article>
+
+          <article class="work-card" id="project-5">
+            <a href="#project-5">
+              <h2 class="work-title">McDonald’s | The Powerpuff Girls</h2>
+              <div class="work-media w-6">
+                <img src="file:///C:/Users/Administrator/Desktop/BuffOnline/pic/mcd/mcd01_LONG_.jpg" alt="McDonald’s | The Powerpuff Girls" />
+              </div>
+            </a>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (mobileToggle && mobileMenu) {
+      mobileToggle.addEventListener('click', () => {
+        const open = mobileMenu.classList.toggle('open');
+        mobileToggle.setAttribute('aria-expanded', String(open));
+        mobileToggle.textContent = open ? 'Close' : 'Menu';
+      });
+
+      mobileMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileToggle.textContent = 'Menu';
+        });
+      });
+    }
+
+    const cards = document.querySelectorAll('.work-card');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          entry.target.classList.remove('out-view');
+        } else {
+          entry.target.classList.remove('in-view');
+          entry.target.classList.add('out-view');
+        }
+      });
+    }, {
+      threshold: 0.14,
+      rootMargin: '0px 0px -6% 0px'
+    });
+
+    cards.forEach((card, index) => {
+      card.style.transitionDelay = `${Math.min(index * 0.04, 0.24)}s`;
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>

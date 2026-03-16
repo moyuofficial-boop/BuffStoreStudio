@@ -531,16 +531,18 @@
       'project-6': { title: 'Fu Sheng Yi Ling Long | Luo Yunxi', hero: 'FSYLL_long_01.png' },
       'project-7': {
         title: 'LINING | LIREN 6',
-        hero: 'liren6_zong.jpg',
+        hero: 'liren6/1.webp',
         type: 'custom-liren6',
-        introText: `LINING LIREN 6 explores a more editorial, performance-led visual language that balances precision, speed and material presence.
+        introText: `It is a great pleasure to cooperate with Li-Ning again. I have deeply integrated 3D dynamic vision and AI generation technology to showcase the performance breakdown of Li-Ning Blade 6 combat boots to the audience, creating a highly futuristic game interface effect.
 
-This secondary page follows the same rhythm as the reference: opening title and text block, then a video placeholder section, followed by large paired visuals and a continuing image flow.
-
-Design & 3D: BuffStore Studio\nClient: LI-NING`,
-        videoPlaceholder: 'liren6_zong.jpg',
-        pairA: ['liren6_zong.jpg', 'lining_liren5_02-ezgif.com-gif-to-webp-converter.webp'],
-        stack: ['liren6_zong.jpg', 'liren6_zong.jpg']
+很高兴与李宁再次达成合作，我将 3D 动态视觉与 AI 生成技术深度融合，把李宁利刃 6 战靴的性能拆解呈现给观众，打造出极具未来感的游戏界面效果。`,
+        videoUrl: 'https://res.cloudinary.com/dgbimi7vj/video/upload/v1773663754/liren6_FINAL_0910_MP4_wsm9bn.mp4',
+        images: [
+          'liren6/2.webp',
+          'liren6/3.webp',
+          'liren6/4.webp',
+          'liren6/liren6_03.webp'
+        ]
       },
       'project-8': { title: 'Panasonic | heater 2025', hero: 'panasonic_01.png' },
       'project-10': { title: 'Angela Chang | "Miguang World Tour"', hero: 'ZSH_LONG_01.jpg' },
@@ -604,16 +606,16 @@ A more detailed project narrative, credits, campaign notes and additional media 
           <div class="detail-copy">${project.introText}</div>
         </section>
         <section class="detail-block detail-video-placeholder">
-          <img src="${project.videoPlaceholder}" alt="${project.title} video placeholder" />
-          <div class="detail-video-label">Video placeholder</div>
+          <video src="${project.videoUrl}" controls playsinline preload="metadata"></video>
+          <div class="detail-video-label">Campaign video</div>
         </section>
         <section class="detail-block detail-two-col">
-          <img src="${project.pairA[0]}" alt="${project.title}" />
-          <img src="${project.pairA[1]}" alt="${project.title}" />
+          <img src="${project.images[0]}" alt="${project.title}" />
+          <img src="${project.images[1]}" alt="${project.title}" />
         </section>
         <section class="detail-block detail-stack">
-          <img src="${project.stack[0]}" alt="${project.title}" />
-          <img src="${project.stack[1]}" alt="${project.title}" />
+          <img src="${project.images[2]}" alt="${project.title}" />
+          <img src="${project.images[3]}" alt="${project.title}" />
         </section>
       `;
     }

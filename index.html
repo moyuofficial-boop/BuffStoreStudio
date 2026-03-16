@@ -118,6 +118,15 @@
 
     .nav-link.active {
       color: var(--soft);
+      transform: scale(2);
+      transform-origin: left center;
+      z-index: 2;
+      position: relative;
+    }
+
+    .nav-link,
+    .group-link {
+      transition: transform 0.18s ease, color 0.18s ease;
     }
 
     .sidebar-footer {
@@ -506,7 +515,9 @@
         hero: 'VCARB2026/CASH APP_RB_02.webp',
         galleryHero: 'VCARB2026/CASH APP_RB_long.webp',
         type: 'custom-cashapp',
-        introText: `It’s a great pleasure to collaborate with Cash App on my first overseas visual project. I have deeply integrated 3D dynamic motion design with AI-generated techniques, combining the seamless fund flow experience of Cash App with the extreme speed of Formula 1, creating a smooth, thrilling, and futuristic audio-visual experience. This work celebrates the outstanding performance of Red Bull RB Team in the 2026 season.`,
+        introText: `It’s a great pleasure to collaborate with Cash App on my first overseas visual project.I have deeply integrated 3D dynamic motion design with AI-generated techniques, combining the seamless fund flow experience of Cash App with the extreme speed of Formula 1, creating a smooth, thrilling, and futuristic audio-visual experience.This work celebrates the outstanding performance of Red Bull RB Team in the 2026 season.
+
+很高兴与 Cash App 达成合作，这是我的首个海外视觉作品。我将3D 动态视觉与AI 生成技术深度融合，把 Cash App 便捷的资金流转体验与 F1 赛车的极致速度感相结合，打造出流畅丝滑、极速震撼、极具未来感的视听效果。以此作品祝贺红牛 RB 车队在 2026 赛季再创佳绩。`,
         videoUrl: 'https://res.cloudinary.com/dgbimi7vj/video/upload/v1773653155/VCARB_Launch_2026_jdqyiw.mp4',
         images: [
           'VCARB2026/02_MAIN_COMP_16_9+(0-00-17-01).webp',
@@ -523,7 +534,20 @@
           'VCARB2026/CASH APP_RB_08.webp'
         ]
       },
-      'project-1': { title: 'Serova | Ziyu', hero: 'Serova_01-ezgif.com-gif-to-webp-converter.webp' },
+      'project-1': {
+        title: 'Serova | Ziyu',
+        hero: 'Serova_01-ezgif.com-gif-to-webp-converter.webp',
+        type: 'custom-serova',
+        introText: `SEROVA 施洛华 X 梓渝 ｜渝我一起 舒适有型
+
+SEROVA × Ziyu | Be With Ziyu, Comfort & Style`,
+        videoUrl: 'https://res.cloudinary.com/dgbimi7vj/video/upload/v1773674520/SEROVA%E6%96%BD%E6%B4%9B%E5%8D%8E_X_%E6%A2%93%E6%B8%9D_%E6%B8%9D%E6%88%91%E4%B8%80%E8%B5%B7_%E8%88%92%E9%80%82%E6%9C%89%E5%9E%8B-%E5%B9%BF%E5%91%8A%E7%89%87-TVC%E5%B9%BF%E5%91%8A%E8%A7%86%E9%A2%91-%E6%96%B0%E7%89%87%E5%9C%BA_tvug2a.mp4',
+        images: [
+          'serova/SLH_ZY_01-ezgif.com-gif-to-webp-converter.webp',
+          'serova/SLH_ZY_02-ezgif.com-gif-to-webp-converter.webp',
+          'serova/SLH_ZY_03-ezgif.com-gif-to-webp-converter.webp'
+        ]
+      },
       'project-2': { title: 'Flyco | Wang Yibo', hero: 'flyco_01-ezgif.com-gif-to-webp-converter.webp' },
       'project-3': { title: 'AIR&A-lin | 《Skyline》', hero: 'A_lin_air_01-ezgif.com-gif-to-webp-converter.webp' },
       'project-4': { title: 'Apple | Wang Feifei 《Runaway》', hero: 'RUNAWAY_MV_4K_MOV_1219-ezgif.com-gif-to-webp-converter.webp' },
@@ -652,6 +676,30 @@ A more detailed project narrative, credits, campaign notes and additional media 
       `;
     }
 
+    function renderSerovaDetail(project) {
+      return `
+        <a class="detail-back js-back">← Back to gallery</a>
+        <section class="detail-intro detail-block">
+          <div>
+            <h1 class="detail-heading">${project.title}</h1>
+            <div class="detail-hero"><img src="${project.hero}" alt="${project.title}" /></div>
+          </div>
+          <div class="detail-copy">${project.introText}</div>
+        </section>
+        <section class="detail-block detail-video-placeholder">
+          <video src="${project.videoUrl}" controls playsinline preload="metadata"></video>
+          <div class="detail-video-label">Campaign video</div>
+        </section>
+        <section class="detail-block detail-full">
+          <img src="${project.images[0]}" alt="${project.title}" />
+        </section>
+        <section class="detail-block detail-two-col">
+          <img src="${project.images[1]}" alt="${project.title}" />
+          <img src="${project.images[2]}" alt="${project.title}" />
+        </section>
+      `;
+    }
+
     function openProject(projectId) {
       const project = projectData[projectId];
       if (!project) return;
@@ -662,7 +710,9 @@ A more detailed project narrative, credits, campaign notes and additional media 
         ? renderLiren6Detail(project)
         : project.type === 'custom-cashapp'
           ? renderCashAppDetail(project)
-          : renderGenericDetail(project);
+          : project.type === 'custom-serova'
+            ? renderSerovaDetail(project)
+            : renderGenericDetail(project);
       setActiveLink(projectId);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       const back = detailShell.querySelector('.js-back');

@@ -8,33 +8,35 @@
     :root {
       --bg: #000000;
       --text: #ffffff;
-      --muted: #d8d8d8;
+      --muted: #d5d5d5;
+      --soft: #a8a8a8;
       --hover: #9f9f9f;
-      --sidebar-left: 42px;
-      --sidebar-top: 68px;
-      --sidebar-width: 238px;
-      --content-left-gap: 82px;
-      --content-top: 72px;
-      --content-right: 64px;
-      --grid-gap-x: 126px;
-      --grid-gap-y: 106px;
-      --body-size: 17px;
-      --title-size: 20px;
-      --small-size: 15px;
+      --sidebar-left: 34px;
+      --sidebar-top: 52px;
+      --sidebar-width: 208px;
+      --content-left-gap: 78px;
+      --content-top: 54px;
+      --content-right: 44px;
+      --grid-gap-x: 120px;
+      --grid-gap-y: 92px;
+      --body-size: 16px;
+      --title-size: 18px;
+      --detail-title: 28px;
       --line-height: 1.22;
-      --logo-width: 168px;
+      --logo-width: 112px;
+      --detail-max: 1360px;
+      --gallery-scale: 1;
+      --w-1: calc(605px * var(--gallery-scale));
+      --w-2: calc(583px * var(--gallery-scale));
+      --w-3: calc(463px * var(--gallery-scale));
+      --w-4: calc(696px * var(--gallery-scale));
+      --w-5: calc(715px * var(--gallery-scale));
+      --w-6: calc(547px * var(--gallery-scale));
+      --w-7: calc(607px * var(--gallery-scale));
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
       min-height: 100vh;
       background: var(--bg);
@@ -46,27 +48,17 @@
       text-rendering: optimizeLegibility;
     }
 
-    a {
+    a, button {
       color: inherit;
       text-decoration: none;
-      transition: color 0.14s ease;
-    }
-
-    a:hover,
-    button:hover {
-      color: var(--hover);
-    }
-
-    img {
-      display: block;
-      width: 100%;
-      height: auto;
+      background: transparent;
       border: 0;
+      font: inherit;
     }
 
-    .page {
-      min-height: 100vh;
-    }
+    a:hover, button:hover { color: var(--hover); }
+    img { display: block; width: 100%; height: auto; border: 0; }
+    .page { min-height: 100vh; }
 
     .sidebar {
       position: fixed;
@@ -77,78 +69,54 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      z-index: 20;
-    }
-
-    .sidebar-main {
-      min-height: 0;
+      z-index: 30;
     }
 
     .logo {
-      display: block;
+      display: inline-block;
       width: var(--logo-width);
       line-height: 0;
-      margin-bottom: 26px;
-      margin-left: 0;
-      padding-left: 0;
+      margin-bottom: 22px;
+      cursor: pointer;
     }
 
-    .logo img {
-      width: 100%;
-      object-fit: contain;
-    }
-
-    .nav-group {
-      margin-bottom: 34px;
-    }
-
-    .group-title,
-    .group-link {
+    .nav-group { margin-bottom: 28px; }
+    .group-title, .group-link {
       display: block;
-      font-size: var(--body-size);
-      font-weight: 400;
-      margin-bottom: 5px;
+      font-size: 15px;
+      margin-bottom: 6px;
     }
 
-    .nav-list {
-      list-style: none;
-    }
-
-    .nav-list li {
-      margin-bottom: 3px;
-    }
+    .nav-list { list-style: none; }
+    .nav-list li { margin-bottom: 3px; }
 
     .nav-link {
       display: inline-block;
-      font-size: var(--body-size);
-      font-weight: 400;
+      font-size: 15px;
       line-height: 1.18;
-      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .nav-link.active {
+      color: var(--soft);
     }
 
     .sidebar-footer {
-      font-size: var(--small-size);
-      line-height: 1.3;
+      font-size: 14px;
+      line-height: 1.35;
       color: var(--muted);
-      padding-top: 18px;
+      padding-top: 16px;
     }
 
     .hero-title {
       position: relative;
       margin-left: calc(var(--sidebar-left) + var(--sidebar-width) + var(--content-left-gap));
-      padding-top: 18px;
+      padding-top: 12px;
       padding-right: var(--content-right);
       font-size: clamp(84px, 13vw, 220px);
       line-height: 0.88;
       letter-spacing: -0.06em;
       font-weight: 700;
-      color: var(--text);
-      text-transform: none;
-      word-break: break-word;
-    }
-
-    .hero-title span {
-      display: block;
     }
 
     .content {
@@ -157,6 +125,9 @@
       padding-right: var(--content-right);
       padding-bottom: 80px;
     }
+
+    .view { display: none; }
+    .view.active { display: block; }
 
     .works-grid {
       display: grid;
@@ -172,93 +143,140 @@
       gap: var(--grid-gap-y);
     }
 
-    .works-col.right {
-      padding-top: 199px;
-    }
+    .works-col.right { padding-top: 188px; }
 
     .work-card {
       display: block;
       width: 100%;
       opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(16px);
+      transition: opacity .65s ease, transform .65s ease;
       will-change: opacity, transform;
     }
 
-    .work-card.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .work-card.out-view {
-      opacity: 0.22;
-      transform: translateY(8px);
+    .work-card.in-view { opacity: 1; transform: translateY(0); }
+    .work-title {
+      margin: 0 0 14px;
+      font-size: var(--title-size);
+      color: var(--muted);
+      line-height: 1.14;
     }
 
     .work-media {
-      background: transparent;
-      overflow: hidden;
+      width: 100%;
+      max-width: 100%;
     }
 
-    .work-media.w-1 { width: 605px; }
-    .work-media.w-2 { width: 583px; }
-    .work-media.w-3 { width: 463px; }
-    .work-media.w-4 { width: 696px; }
-    .work-media.w-5 { width: 715px; }
-    .work-media.w-6 { width: 547px; }
-    .work-media.w-7 { width: 607px; }
-    .runaway-large {
-      transform: none;
-      transform-origin: top left;
-      margin-bottom: 0;
-      z-index: 1;
-      position: relative;
+    .work-media.w-1 { width: min(var(--w-1), 100%); }
+    .work-media.w-2 { width: min(var(--w-2), 100%); }
+    .work-media.w-3 { width: min(var(--w-3), 100%); }
+    .work-media.w-4 { width: min(var(--w-4), 100%); }
+    .work-media.w-5 { width: min(var(--w-5), 100%); }
+    .work-media.w-6 { width: min(var(--w-6), 100%); }
+    .work-media.w-7 { width: min(var(--w-7), 100%); }
+
+    .detail-shell {
+      max-width: var(--detail-max);
+      padding-right: 18px;
     }
 
-    .runaway-small {
-      transform: none;
-      transform-origin: top left;
-      margin-bottom: 0;
-      position: relative;
-    }
-
-    .work-title {
-      margin-top: 0;
-      margin-bottom: 14px;
-      font-size: var(--title-size);
-      font-weight: 400;
+    .detail-back {
+      display: inline-block;
+      margin-bottom: 24px;
       color: var(--muted);
-      line-height: 1.16;
+      cursor: pointer;
     }
 
-    .mobile-header {
-      display: none;
+    .detail-intro {
+      display: grid;
+      grid-template-columns: minmax(420px, 760px) minmax(260px, 1fr);
+      gap: 44px 56px;
+      align-items: start;
+      margin-bottom: 58px;
     }
+
+    .detail-heading {
+      margin-bottom: 22px;
+      font-size: var(--detail-title);
+      line-height: 1.08;
+      color: var(--text);
+    }
+
+    .detail-hero img,
+    .detail-video-placeholder img,
+    .detail-two-col img,
+    .detail-full img {
+      width: 100%;
+    }
+
+    .detail-copy {
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+
+    .detail-copy .meta {
+      margin-top: 24px;
+      color: var(--soft);
+    }
+
+    .detail-block {
+      margin-bottom: 58px;
+    }
+
+    .detail-video-placeholder {
+      position: relative;
+    }
+
+    .detail-video-label {
+      position: absolute;
+      left: 20px;
+      bottom: 18px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.62);
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .detail-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .detail-stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .mobile-header { display: none; }
 
     @media (max-width: 1320px) {
       :root {
-        --sidebar-left: 26px;
-        --sidebar-width: 214px;
-        --content-left-gap: 52px;
-        --grid-gap-x: 70px;
+        --sidebar-left: 24px;
+        --sidebar-width: 198px;
+        --content-left-gap: 54px;
+        --grid-gap-x: 68px;
+        --gallery-scale: 0.84;
       }
+      .work-media.w-1, .work-media.w-2, .work-media.w-3, .work-media.w-4,
+      .work-media.w-5, .work-media.w-6, .work-media.w-7 { width: 100%; }
+      .detail-intro { grid-template-columns: 1.2fr .8fr; }
+    }
 
-      .work-media.w-1,
-      .work-media.w-2,
-      .work-media.w-3,
-      .work-media.w-4,
-      .work-media.w-5,
-      .work-media.w-6,
-      .work-media.w-7 {
-        width: 100%;
+    @media (max-width: 1100px) {
+      :root {
+        --gallery-scale: 0.72;
+        --grid-gap-x: 52px;
+        --grid-gap-y: 74px;
       }
     }
 
     @media (max-width: 900px) {
-      .sidebar {
-        display: none;
-      }
-
+      .sidebar { display: none; }
       .mobile-header {
         display: block;
         position: sticky;
@@ -267,24 +285,16 @@
         background: rgba(0, 0, 0, 0.98);
         padding: 20px 18px 14px;
       }
-
       .mobile-bar {
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
-
       .mobile-logo {
-        width: 132px;
+        width: 86px;
         line-height: 0;
+        cursor: pointer;
       }
-
-      .mobile-logo img {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-      }
-
       .mobile-toggle {
         appearance: none;
         border: 0;
@@ -293,148 +303,132 @@
         font: inherit;
         cursor: pointer;
       }
-
-      .mobile-menu {
-        display: none;
-        padding-top: 14px;
-      }
-
-      .mobile-menu.open {
-        display: block;
-      }
-
-      .mobile-menu .nav-group {
-        margin-bottom: 24px;
-      }
-
-      .mobile-menu .sidebar-footer {
-        padding-top: 12px;
-      }
-
+      .mobile-menu { display: none; padding-top: 14px; }
+      .mobile-menu.open { display: block; }
+      .mobile-menu .nav-group { margin-bottom: 24px; }
+      .mobile-menu .sidebar-footer { padding-top: 12px; }
       .hero-title {
         margin-left: 0;
         padding: 8px 18px 10px;
         font-size: clamp(56px, 16vw, 110px);
       }
-
       .content {
         margin-left: 0;
         padding: 18px 18px 36px;
       }
-
       .works-grid {
-        grid-template-columns: 1fr;
-        column-gap: 0;
-      }
-
-      .works-col {
+        display: flex;
+        flex-direction: column;
         gap: 34px;
       }
-
-      .works-col.right {
-        padding-top: 0;
+      .works-col { display: contents; }
+      .works-col.right { padding-top: 0; }
+      #project-0 { order: 1; }
+      #project-7 { order: 2; }
+      #project-1 { order: 3; }
+      #project-11 { order: 4; }
+      #project-3 { order: 5; }
+      #project-4 { order: 6; }
+      #project-6 { order: 7; }
+      #project-10 { order: 8; }
+      #project-12 { order: 9; }
+      #project-8 { order: 10; }
+      #project-2 { order: 11; }
+      #project-13 { order: 12; }
+      #project-5 { order: 13; }
+      .work-media, .work-media.w-1, .work-media.w-2, .work-media.w-3,
+      .work-media.w-4, .work-media.w-5, .work-media.w-6, .work-media.w-7 { width: 100%; }
+      .detail-intro {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        margin-bottom: 34px;
       }
-
-      .work-media,
-      .work-media.w-1,
-      .work-media.w-2,
-      .work-media.w-3,
-      .work-media.w-4,
-      .work-media.w-5,
-      .work-media.w-6,
-      .work-media.w-7 {
-        width: 100%;
-      }
+      .detail-heading { font-size: 24px; }
+      .detail-two-col { grid-template-columns: 1fr; }
+      .detail-block { margin-bottom: 28px; }
     }
   </style>
 </head>
 <body>
   <header class="mobile-header">
     <div class="mobile-bar">
-      <a href="#top" class="mobile-logo" aria-label="Buff Store Studio Home">
+      <a class="mobile-logo js-home" aria-label="Buff Store Studio Home">
         <img src="logo2-black-ezgif.com-png-to-webp-converter.webp" alt="Buff Store Studio logo" />
       </a>
       <button class="mobile-toggle" id="mobileToggle" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
     </div>
-
     <div class="mobile-menu" id="mobileMenu">
       <div class="nav-group">
         <div class="group-title">New</div>
-          <ul class="nav-list">
-            <li><a class="nav-link" href="#project-0">Toyota | Supra</a></li>
-            <li><a class="nav-link" href="#project-7">LINING | LIREN 6</a></li>
-            <li><a class="nav-link" href="#project-1">Serova | Ziyu</a></li>
-            <li><a class="nav-link" href="#project-11">LININIG | LIREN 5V2</a></li>
-            <li><a class="nav-link" href="#project-3">AIR&A-lin | 《Skyline》</a></li>
-            <li><a class="nav-link" href="#project-4">Apple | Wang Feifei 《Runaway》</a></li>
-            <li><a class="nav-link" href="#project-6">Fu Sheng Yi Ling Long | Luo Yunxi</a></li>
-            <li><a class="nav-link" href="#project-10">Angela Chang | "Miguang World Tour"</a></li>
-            <li><a class="nav-link" href="#project-12">Angela Chang | "Muggle"</a></li>
-          </ul>
-        </div>
-
-        <div class="nav-group">
-          <div class="group-title">Selected</div>
-          <ul class="nav-list">
-            <li><a class="nav-link" href="#project-8">Panasonic | heater 2025</a></li>
-            <li><a class="nav-link" href="#project-2">Flyco | Wang Yibo</a></li>
-            <li><a class="nav-link" href="#project-13">AromeManpo</a></li>
-            <li><a class="nav-link" href="#project-5">McDonald’s | The Powerpuff Girls</a></li>
-          </ul>
-        </div>
-
-      <div class="nav-group">
-        <a class="group-link" href="#">All Projects</a>
+        <ul class="nav-list">
+          <li><a class="nav-link js-project-link" data-project="project-0">Toyota | Supra</a></li>
+          <li><a class="nav-link js-project-link" data-project="project-7">LINING | LIREN 6</a></li>
+          <li><a class="nav-link js-project-link" data-project="project-1">Serova | Ziyu</a></li>
+          <li><a class="nav-link js-project-link" data-project="project-11">LININIG | LIREN 5V2</a></li>
+          <li><a class="nav-link js-project-link" data-project="project-3">AIR&A-lin | 《Skyline》</a></li>
+          <li><a class="nav-link js-project-link" data-project="project-4">Apple | Wang Feifei 《Runaway》</a></li>
+          <li><a class="nav-link js-project-link" data-project="project-6">Fu Sheng Yi Ling Long | Luo Yunxi</a></li>
+          <li><a class="nav-link js-project-link" data-project="project-10">Angela Chang | "Miguang World Tour"</a></li>
+          <li><a class="nav-link js-project-link" data-project="project-12">Angela Chang | "Muggle"</a></li>
+        </ul>
       </div>
-
       <div class="nav-group">
-          <a class="group-link" href="#">Info</a>
-          <a class="group-link" href="https://www.instagram.com/mori_merceies/" target="_blank" rel="noreferrer">Instagram</a>
-          <a class="group-link" href="https://www.xiaohongshu.com/user/profile/5a96254611be104dda4a1ee6" target="_blank" rel="noreferrer">Red Book</a>
-          <a class="group-link" href="#" target="_blank" rel="noreferrer">TikTok</a>
-          <a class="group-link" href="https://www.xinpianchang.com/u10097145?channel=copyLink&from=webShare" target="_blank" rel="noreferrer">Xinpianchang</a>
-        </div>
-
-      <div class="sidebar-footer">©2025 Buff Store Studio</div>
+        <div class="group-title">Selected</div>
+        <ul class="nav-list">
+          <li><a class="nav-link js-project-link" data-project="project-8">Panasonic | heater 2025</a></li>
+          <li><a class="nav-link js-project-link" data-project="project-2">Flyco | Wang Yibo</a></li>
+          <li><a class="nav-link js-project-link" data-project="project-13">AromeManpo</a></li>
+          <li><a class="nav-link js-project-link" data-project="project-5">McDonald’s | The Powerpuff Girls</a></li>
+        </ul>
+      </div>
+      <div class="nav-group">
+        <a class="group-link js-home">All Projects</a>
+        <a class="group-link" href="#">Team members</a>
+      </div>
+      <div class="nav-group">
+        <a class="group-link" href="#">Info</a>
+        <a class="group-link" href="https://www.instagram.com/mori_merceies/" target="_blank" rel="noreferrer">Instagram</a>
+        <a class="group-link" href="https://www.xiaohongshu.com/user/profile/5a96254611be104dda4a1ee6" target="_blank" rel="noreferrer">Red Book</a>
+        <a class="group-link" href="#" target="_blank" rel="noreferrer">TikTok</a>
+        <a class="group-link" href="https://www.xinpianchang.com/u10097145?channel=copyLink&from=webShare" target="_blank" rel="noreferrer">Xinpianchang</a>
+      </div>
+      <div class="sidebar-footer">©2026 Buff Store Studio<br>China Sichuan, Korea Seoul,<br>Japan Tokyo</div>
     </div>
   </header>
 
   <div class="page">
     <aside class="sidebar">
-      <div class="sidebar-main">
-        <a href="#top" class="logo" aria-label="Buff Store Studio Home">
+      <div>
+        <a class="logo js-home" aria-label="Buff Store Studio Home">
           <img src="logo2-black-ezgif.com-png-to-webp-converter.webp" alt="Buff Store Studio logo" />
         </a>
-
         <div class="nav-group">
-        <div class="group-title">New</div>
+          <div class="group-title">New</div>
           <ul class="nav-list">
-            <li><a class="nav-link" href="#project-0">Toyota | Supra</a></li>
-            <li><a class="nav-link" href="#project-7">LINING | LIREN 6</a></li>
-            <li><a class="nav-link" href="#project-1">Serova | Ziyu</a></li>
-            <li><a class="nav-link" href="#project-11">LININIG | LIREN 5V2</a></li>
-            <li><a class="nav-link" href="#project-3">AIR&A-lin | 《Skyline》</a></li>
-            <li><a class="nav-link" href="#project-4">Apple | Wang Feifei 《Runaway》</a></li>
-            <li><a class="nav-link" href="#project-6">Fu Sheng Yi Ling Long | Luo Yunxi</a></li>
-            <li><a class="nav-link" href="#project-10">Angela Chang | "Miguang World Tour"</a></li>
-            <li><a class="nav-link" href="#project-12">Angela Chang | "Muggle"</a></li>
+            <li><a class="nav-link js-project-link" data-project="project-0">Toyota | Supra</a></li>
+            <li><a class="nav-link js-project-link" data-project="project-7">LINING | LIREN 6</a></li>
+            <li><a class="nav-link js-project-link" data-project="project-1">Serova | Ziyu</a></li>
+            <li><a class="nav-link js-project-link" data-project="project-11">LININIG | LIREN 5V2</a></li>
+            <li><a class="nav-link js-project-link" data-project="project-3">AIR&A-lin | 《Skyline》</a></li>
+            <li><a class="nav-link js-project-link" data-project="project-4">Apple | Wang Feifei 《Runaway》</a></li>
+            <li><a class="nav-link js-project-link" data-project="project-6">Fu Sheng Yi Ling Long | Luo Yunxi</a></li>
+            <li><a class="nav-link js-project-link" data-project="project-10">Angela Chang | "Miguang World Tour"</a></li>
+            <li><a class="nav-link js-project-link" data-project="project-12">Angela Chang | "Muggle"</a></li>
           </ul>
         </div>
-
         <div class="nav-group">
           <div class="group-title">Selected</div>
           <ul class="nav-list">
-            <li><a class="nav-link" href="#project-8">Panasonic | heater 2025</a></li>
-            <li><a class="nav-link" href="#project-2">Flyco | Wang Yibo</a></li>
-            <li><a class="nav-link" href="#project-13">AromeManpo</a></li>
-            <li><a class="nav-link" href="#project-5">McDonald’s | The Powerpuff Girls</a></li>
+            <li><a class="nav-link js-project-link" data-project="project-8">Panasonic | heater 2025</a></li>
+            <li><a class="nav-link js-project-link" data-project="project-2">Flyco | Wang Yibo</a></li>
+            <li><a class="nav-link js-project-link" data-project="project-13">AromeManpo</a></li>
+            <li><a class="nav-link js-project-link" data-project="project-5">McDonald’s | The Powerpuff Girls</a></li>
           </ul>
         </div>
-
         <div class="nav-group">
-          <a class="group-link" href="#">All Projects</a>
+          <a class="group-link js-home">All Projects</a>
+          <a class="group-link" href="#">Team members</a>
         </div>
-
         <div class="nav-group">
           <a class="group-link" href="#">Info</a>
           <a class="group-link" href="https://www.instagram.com/mori_merceies/" target="_blank" rel="noreferrer">Instagram</a>
@@ -443,144 +437,188 @@
           <a class="group-link" href="https://www.xinpianchang.com/u10097145?channel=copyLink&from=webShare" target="_blank" rel="noreferrer">Xinpianchang</a>
         </div>
       </div>
-
-      <div class="sidebar-footer">©2025 Buff Store Studio</div>
+      <div class="sidebar-footer">©2026 Buff Store Studio<br>China Sichuan, Korea Seoul,<br>Japan Tokyo</div>
     </aside>
 
-    <section class="hero-title" aria-label="Site title">
-      <span>BuffStore</span>
-    </section>
+    <section class="hero-title" id="heroTitle" aria-label="Site title">BuffStore</section>
 
-    <main class="content" id="top">
-      <section class="works-grid" aria-label="Portfolio projects">
-        <div class="works-col left">
-          <article class="work-card" id="project-0">
-            <a href="#project-0">
-              <h2 class="work-title">Toyota | Supra</h2>
-              <div class="work-media w-1">
-                <img src="Supra-ezgif.com-jpg-to-webp-converter.webp" alt="Toyota | Supra" />
-              </div>
-            </a>
-          </article>
-
-          <article class="work-card" id="project-1">
-            <a href="#project-1">
-              <h2 class="work-title">Serova | Ziyu</h2>
-              <div class="work-media w-1">
-                <img src="Serova_01-ezgif.com-gif-to-webp-converter.webp" alt="Serova | Ziyu" />
-              </div>
-            </a>
-          </article>
-
-          <article class="work-card" id="project-3">
-            <a href="#project-3">
-              <h2 class="work-title">AIR&A-lin | 《Skyline》</h2>
-              <div class="work-media w-4">
-                <img src="A_lin_air_01-ezgif.com-gif-to-webp-converter.webp" alt="AIR&A-lin | 《Skyline》" />
-              </div>
-            </a>
-          </article>
-
-          <article class="work-card" id="project-6">
-            <a href="#project-6">
-              <h2 class="work-title">Fu Sheng Yi Ling Long | Luo Yunxi</h2>
-              <div class="work-media w-5">
-                <img src="FSYLL_long_01.png" alt="Fu Sheng Yi Ling Long | Luo Yunxi" />
-              </div>
-            </a>
-          </article>
-
-          <article class="work-card" id="project-12">
-            <a href="#project-12">
-              <h2 class="work-title">Angela Chang | "Muggle"</h2>
-              <div class="work-media w-4">
-                <img src="ZSH_LONG_02.jpg" alt="Angela Chang | Muggle" />
-              </div>
-            </a>
-          </article>
-
-          <article class="work-card" id="project-2">
-            <a href="#project-2">
-              <h2 class="work-title">Flyco | Wang Yibo</h2>
-              <div class="work-media w-2">
-                <img src="flyco_01-ezgif.com-gif-to-webp-converter.webp" alt="Flyco | Wang Yibo" />
-              </div>
-            </a>
-          </article>
-
+    <main class="content">
+      <section class="view active" id="homeView">
+        <section class="works-grid" aria-label="Portfolio projects">
+          <div class="works-col left">
+            <article class="work-card" id="project-0"><a class="js-project-link" data-project="project-0"><h2 class="work-title">Toyota | Supra</h2><div class="work-media w-1"><img src="Supra-ezgif.com-jpg-to-webp-converter.webp" alt="Toyota | Supra" /></div></a></article>
+            <article class="work-card" id="project-1"><a class="js-project-link" data-project="project-1"><h2 class="work-title">Serova | Ziyu</h2><div class="work-media w-1"><img src="Serova_01-ezgif.com-gif-to-webp-converter.webp" alt="Serova | Ziyu" /></div></a></article>
+            <article class="work-card" id="project-3"><a class="js-project-link" data-project="project-3"><h2 class="work-title">AIR&A-lin | 《Skyline》</h2><div class="work-media w-4"><img src="A_lin_air_01-ezgif.com-gif-to-webp-converter.webp" alt="AIR&A-lin | 《Skyline》" /></div></a></article>
+            <article class="work-card" id="project-6"><a class="js-project-link" data-project="project-6"><h2 class="work-title">Fu Sheng Yi Ling Long | Luo Yunxi</h2><div class="work-media w-5"><img src="FSYLL_long_01.png" alt="Fu Sheng Yi Ling Long | Luo Yunxi" /></div></a></article>
+            <article class="work-card" id="project-12"><a class="js-project-link" data-project="project-12"><h2 class="work-title">Angela Chang | \"Muggle\"</h2><div class="work-media w-4"><img src="ZSH_LONG_02.jpg" alt="Angela Chang | Muggle" /></div></a></article>
+            <article class="work-card" id="project-2"><a class="js-project-link" data-project="project-2"><h2 class="work-title">Flyco | Wang Yibo</h2><div class="work-media w-2"><img src="flyco_01-ezgif.com-gif-to-webp-converter.webp" alt="Flyco | Wang Yibo" /></div></a></article>
+            <article class="work-card" id="project-5"><a class="js-project-link" data-project="project-5"><h2 class="work-title">McDonald’s | The Powerpuff Girls</h2><div class="work-media w-6"><img src="mcd01_LONG_.jpg" alt="McDonald’s | The Powerpuff Girls" /></div></a></article>
           </div>
+          <div class="works-col right">
+            <article class="work-card" id="project-7"><a class="js-project-link" data-project="project-7"><h2 class="work-title">LINING | LIREN 6</h2><div class="work-media w-1"><img src="liren6_zong.jpg" alt="LINING | LIREN 6" /></div></a></article>
+            <article class="work-card" id="project-11"><a class="js-project-link" data-project="project-11"><h2 class="work-title">LININIG | LIREN 5V2</h2><div class="work-media w-1"><img src="lining_liren5_02-ezgif.com-gif-to-webp-converter.webp" alt="LININIG | LIREN 5V2" /></div></a></article>
+            <article class="work-card" id="project-4"><a class="js-project-link" data-project="project-4"><h2 class="work-title">Apple | Wang Feifei 《Runaway》</h2><div class="work-media w-3"><img src="RUNAWAY_MV_4K_MOV_1219-ezgif.com-gif-to-webp-converter.webp" alt="Apple | Wang Feifei 《Runaway》" /></div></a></article>
+            <article class="work-card" id="project-10"><a class="js-project-link" data-project="project-10"><h2 class="work-title">Angela Chang | \"Miguang World Tour\"</h2><div class="work-media w-2"><img src="ZSH_LONG_01.jpg" alt="Angela Chang | Miguang World Tour" /></div></a></article>
+            <article class="work-card" id="project-8"><a class="js-project-link" data-project="project-8"><h2 class="work-title">Panasonic | heater 2025</h2><div class="work-media w-7"><img src="panasonic_01.png" alt="Panasonic | heater 2025" /></div></a></article>
+            <article class="work-card" id="project-13"><a class="js-project-link" data-project="project-13"><h2 class="work-title">AromeManpo</h2><div class="work-media w-5"><img src="FUYUMANPU.jpg" alt="AromeManpo" /></div></a></article>
+          </div>
+        </section>
+      </section>
 
-        <div class="works-col right">
-          <article class="work-card" id="project-7">
-            <a href="#project-7">
-              <h2 class="work-title">LINING | LIREN 6</h2>
-              <div class="work-media w-1">
-                <img src="liren6_zong.jpg" alt="LINING | LIREN 6" />
-              </div>
-            </a>
-          </article>
-
-          <article class="work-card" id="project-11">
-            <a href="#project-11">
-              <h2 class="work-title">LININIG | LIREN 5V2</h2>
-              <div class="work-media w-1">
-                <img src="lining_liren5_02-ezgif.com-gif-to-webp-converter.webp" alt="LININIG | LIREN 5V2" />
-              </div>
-            </a>
-          </article>
-
-          <article class="work-card" id="project-4">
-            <a href="#project-4">
-              <h2 class="work-title">Apple | Wang Feifei 《Runaway》</h2>
-              <div class="work-media w-3 runaway-small">
-                <img src="RUNAWAY_MV_4K_MOV_1219-ezgif.com-gif-to-webp-converter.webp" alt="Apple | Wang Feifei 《Runaway》" />
-              </div>
-            </a>
-          </article>
-
-          <article class="work-card" id="project-10">
-            <a href="#project-10">
-              <h2 class="work-title">Angela Chang | "Miguang World Tour"</h2>
-              <div class="work-media w-2">
-                <img src="ZSH_LONG_01.jpg" alt="Angela Chang | Miguang World Tour" />
-              </div>
-            </a>
-          </article>
-
-          <article class="work-card" id="project-8">
-            <a href="#project-8">
-              <h2 class="work-title">Panasonic | heater 2025</h2>
-              <div class="work-media w-7">
-                <img src="panasonic_01.png" alt="Panasonic | heater 2025" />
-              </div>
-            </a>
-          </article>
-
-          <article class="work-card" id="project-13">
-            <a href="#project-13">
-              <h2 class="work-title">AromeManpo</h2>
-              <div class="work-media w-5">
-                <img src="FUYUMANPU.jpg" alt="AromeManpo" />
-              </div>
-            </a>
-          </article>
-
-          <article class="work-card" id="project-5">
-            <a href="#project-5">
-              <h2 class="work-title">McDonald’s | The Powerpuff Girls</h2>
-              <div class="work-media w-6">
-                <img src="mcd01_LONG_.jpg" alt="McDonald’s | The Powerpuff Girls" />
-              </div>
-            </a>
-          </article>
-        </div>
+      <section class="view" id="detailView">
+        <div class="detail-shell" id="detailShell"></div>
       </section>
     </main>
   </div>
 
   <script>
+    const projectData = {
+      'project-0': { title: 'Toyota | Supra', hero: 'Supra-ezgif.com-jpg-to-webp-converter.webp' },
+      'project-1': { title: 'Serova | Ziyu', hero: 'Serova_01-ezgif.com-gif-to-webp-converter.webp' },
+      'project-2': { title: 'Flyco | Wang Yibo', hero: 'flyco_01-ezgif.com-gif-to-webp-converter.webp' },
+      'project-3': { title: 'AIR&A-lin | 《Skyline》', hero: 'A_lin_air_01-ezgif.com-gif-to-webp-converter.webp' },
+      'project-4': { title: 'Apple | Wang Feifei 《Runaway》', hero: 'RUNAWAY_MV_4K_MOV_1219-ezgif.com-gif-to-webp-converter.webp' },
+      'project-5': { title: 'McDonald’s | The Powerpuff Girls', hero: 'mcd01_LONG_.jpg' },
+      'project-6': { title: 'Fu Sheng Yi Ling Long | Luo Yunxi', hero: 'FSYLL_long_01.png' },
+      'project-7': {
+        title: 'LINING | LIREN 6',
+        hero: 'liren6_zong.jpg',
+        type: 'custom-liren6',
+        introText: `LINING LIREN 6 explores a more editorial, performance-led visual language that balances precision, speed and material presence.
+
+This secondary page follows the same rhythm as the reference: opening title and text block, then a video placeholder section, followed by large paired visuals and a continuing image flow.
+
+Design & 3D: BuffStore Studio\nClient: LI-NING`,
+        videoPlaceholder: 'liren6_zong.jpg',
+        pairA: ['liren6_zong.jpg', 'lining_liren5_02-ezgif.com-gif-to-webp-converter.webp'],
+        stack: ['liren6_zong.jpg', 'liren6_zong.jpg']
+      },
+      'project-8': { title: 'Panasonic | heater 2025', hero: 'panasonic_01.png' },
+      'project-10': { title: 'Angela Chang | "Miguang World Tour"', hero: 'ZSH_LONG_01.jpg' },
+      'project-11': { title: 'LININIG | LIREN 5V2', hero: 'lining_liren5_02-ezgif.com-gif-to-webp-converter.webp' },
+      'project-12': { title: 'Angela Chang | "Muggle"', hero: 'ZSH_LONG_02.jpg' },
+      'project-13': { title: 'AromeManpo', hero: 'FUYUMANPU.jpg' }
+    };
+
+    const homeView = document.getElementById('homeView');
+    const detailView = document.getElementById('detailView');
+    const detailShell = document.getElementById('detailShell');
+    const heroTitle = document.getElementById('heroTitle');
     const mobileToggle = document.getElementById('mobileToggle');
     const mobileMenu = document.getElementById('mobileMenu');
+    const navLinks = Array.from(document.querySelectorAll('.js-project-link'));
+    const homeLinks = Array.from(document.querySelectorAll('.js-home'));
+
+    function setActiveLink(projectId) {
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.project === projectId);
+      });
+    }
+
+    function renderGenericDetail(project) {
+      return `
+        <a class="detail-back js-back">← Back to gallery</a>
+        <section class="detail-intro detail-block">
+          <div>
+            <h1 class="detail-heading">${project.title}</h1>
+            <div class="detail-hero"><img src="${project.hero}" alt="${project.title}" /></div>
+          </div>
+          <div class="detail-copy">This project page is ready for a full case-study layout. The current version uses a clean placeholder structure so each navigation item can open its own secondary page first.
+
+A more detailed project narrative, credits, campaign notes and additional media can be added here next.
+
+<div class="meta">Design & 3D: BuffStore Studio\nClient: TBA</div></div>
+        </section>
+        <section class="detail-block detail-video-placeholder">
+          <img src="${project.hero}" alt="${project.title}" />
+          <div class="detail-video-label">Video placeholder</div>
+        </section>
+        <section class="detail-block detail-two-col">
+          <img src="${project.hero}" alt="${project.title}" />
+          <img src="${project.hero}" alt="${project.title}" />
+        </section>
+        <section class="detail-block detail-stack">
+          <img src="${project.hero}" alt="${project.title}" />
+          <img src="${project.hero}" alt="${project.title}" />
+        </section>
+      `;
+    }
+
+    function renderLiren6Detail(project) {
+      return `
+        <a class="detail-back js-back">← Back to gallery</a>
+        <section class="detail-intro detail-block">
+          <div>
+            <h1 class="detail-heading">${project.title}</h1>
+            <div class="detail-hero"><img src="${project.hero}" alt="${project.title}" /></div>
+          </div>
+          <div class="detail-copy">${project.introText}</div>
+        </section>
+        <section class="detail-block detail-video-placeholder">
+          <img src="${project.videoPlaceholder}" alt="${project.title} video placeholder" />
+          <div class="detail-video-label">Video placeholder</div>
+        </section>
+        <section class="detail-block detail-two-col">
+          <img src="${project.pairA[0]}" alt="${project.title}" />
+          <img src="${project.pairA[1]}" alt="${project.title}" />
+        </section>
+        <section class="detail-block detail-stack">
+          <img src="${project.stack[0]}" alt="${project.title}" />
+          <img src="${project.stack[1]}" alt="${project.title}" />
+        </section>
+      `;
+    }
+
+    function openProject(projectId) {
+      const project = projectData[projectId];
+      if (!project) return;
+      heroTitle.style.display = 'none';
+      homeView.classList.remove('active');
+      detailView.classList.add('active');
+      detailShell.innerHTML = project.type === 'custom-liren6'
+        ? renderLiren6Detail(project)
+        : renderGenericDetail(project);
+      setActiveLink(projectId);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const back = detailShell.querySelector('.js-back');
+      if (back) back.addEventListener('click', showHome);
+      if (mobileMenu) {
+        mobileMenu.classList.remove('open');
+        if (mobileToggle) {
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileToggle.textContent = 'Menu';
+        }
+      }
+    }
+
+    function showHome() {
+      detailView.classList.remove('active');
+      homeView.classList.add('active');
+      heroTitle.style.display = 'block';
+      setActiveLink('');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (mobileMenu) {
+        mobileMenu.classList.remove('open');
+        if (mobileToggle) {
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileToggle.textContent = 'Menu';
+        }
+      }
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        openProject(link.dataset.project);
+      });
+    });
+
+    homeLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        showHome();
+      });
+    });
 
     if (mobileToggle && mobileMenu) {
       mobileToggle.addEventListener('click', () => {
@@ -588,37 +626,15 @@
         mobileToggle.setAttribute('aria-expanded', String(open));
         mobileToggle.textContent = open ? 'Close' : 'Menu';
       });
-
-      mobileMenu.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.remove('open');
-          mobileToggle.setAttribute('aria-expanded', 'false');
-          mobileToggle.textContent = 'Menu';
-        });
-      });
     }
 
     const cards = document.querySelectorAll('.work-card');
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          entry.target.classList.remove('out-view');
-        } else {
-          entry.target.classList.remove('in-view');
-          entry.target.classList.add('out-view');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('in-view');
       });
-    }, {
-      threshold: 0.14,
-      rootMargin: '0px 0px -6% 0px'
-    });
-
-    cards.forEach((card, index) => {
-      card.style.transitionDelay = `${Math.min(index * 0.04, 0.24)}s`;
-      observer.observe(card);
-    });
+    }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
+    cards.forEach((card) => observer.observe(card));
   </script>
 </body>
 </html>

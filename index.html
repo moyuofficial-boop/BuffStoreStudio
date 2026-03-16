@@ -97,7 +97,15 @@
     }
 
     .nav-list { list-style: none; }
-    .nav-list li { margin-bottom: 3px; }
+    .nav-list li {
+      margin-bottom: 3px;
+      transition: margin 0.18s ease;
+    }
+
+    .nav-list li:has(.nav-link.active) {
+      margin-top: 12px;
+      margin-bottom: 16px;
+    }
 
     .nav-link {
       display: inline-block;
@@ -118,10 +126,12 @@
 
     .nav-link.active {
       color: var(--soft);
-      transform: scale(2);
+      transform: scale(1.4);
       transform-origin: left center;
       z-index: 2;
       position: relative;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
 
     .nav-link,

@@ -233,6 +233,20 @@
       margin-bottom: 58px;
     }
 
+    .detail-intro > div:last-child {
+      padding-top: 58px;
+    }
+
+    .detail-intro > div:first-child .detail-heading {
+      margin-bottom: 22px;
+    }
+
+    .detail-intro > div:first-child .detail-hero {
+      gap: 44px 56px;
+      align-items: start;
+      margin-bottom: 58px;
+    }
+
     .detail-heading {
       margin-bottom: 22px;
       font-size: var(--detail-title);
@@ -251,6 +265,7 @@
 
     .detail-copy {
       max-width: 520px;
+      margin-left: 0;
       color: var(--muted);
       font-size: 15px;
       line-height: 1.5;
@@ -383,6 +398,9 @@
         grid-template-columns: 1fr;
         gap: 22px;
         margin-bottom: 34px;
+      }
+      .detail-intro > div:last-child {
+        padding-top: 0;
       }
       .detail-heading { font-size: 24px; }
       .detail-two-col { grid-template-columns: 1fr; }

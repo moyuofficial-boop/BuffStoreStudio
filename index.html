@@ -613,7 +613,21 @@ Client: Apple`,
         ]
       },
       'project-5': { title: 'McDonald’s | The Powerpuff Girls', hero: 'mcd01_LONG_.jpg' },
-      'project-6': { title: 'Fu Sheng Yi Ling Long | Luo Yunxi', hero: 'FSYLL_long_01.png' },
+      'project-6': {
+        title: 'Fu Sheng Yi Ling Long | Luo Yunxi',
+        hero: 'FSYLL/FSYLL_01v2-ezgif.com-gif-to-webp-converter.webp',
+        type: 'custom-fsyll',
+        textFile: 'FSYLL/FSYLL.txt',
+        videoUrl: 'https://res.cloudinary.com/dgbimi7vj/video/upload/v1773650413/%E6%B5%AE%E7%94%9F%E5%BF%86%E7%8E%B2%E7%8F%91x%E7%BD%97%E4%BA%91%E7%86%99%E4%B8%A8_%E7%8E%B2%E7%8F%91%E5%B1%80_%E4%BB%A3%E8%A8%80%E4%BA%BATVC-%E5%B9%BF%E5%91%8A%E7%89%87-%E6%B8%B8%E6%88%8F-%E5%A8%B1%E4%B9%90%E8%A7%86%E9%A2%91-%E6%96%B0%E7%89%87%E5%9C%BA_2_i24hmu.mp4',
+        images: [
+          'FSYLL/FSYLL_02-ezgif.com-gif-to-webp-converter.webp',
+          'FSYLL/fusheng_01-ezgif.com-resize.webp',
+          'FSYLL/FSYLL_03.webp',
+          'FSYLL/FSYLL_04.webp',
+          'FSYLL/FSYLL_06.webp',
+          'FSYLL/FSYLL_long_01.webp'
+        ]
+      },
       'project-7': {
         title: 'LINING | LIREN 6',
         hero: 'liren6/1.webp',
@@ -909,6 +923,37 @@ A more detailed project narrative, credits, campaign notes and additional media 
       `;
     }
 
+    function renderFSYLLDetail(project) {
+      return `
+        <a class="detail-back js-back">← Back to gallery</a>
+        <section class="detail-intro detail-block">
+          <div>
+            <h1 class="detail-heading">${project.title}</h1>
+            <div class="detail-hero"><img src="${project.hero}" alt="${project.title}" /></div>
+          </div>
+          <div class="detail-copy" data-text-file="${project.textFile}">Loading text...</div>
+        </section>
+        <section class="detail-block detail-video-placeholder">
+          <video src="${project.videoUrl}" controls playsinline preload="metadata"></video>
+          <div class="detail-video-label">Campaign video</div>
+        </section>
+        <section class="detail-block detail-full">
+          <img src="${project.images[0]}" alt="${project.title}" />
+        </section>
+        <section class="detail-block detail-two-col">
+          <img src="${project.images[1]}" alt="${project.title}" />
+          <img src="${project.images[2]}" alt="${project.title}" />
+        </section>
+        <section class="detail-block detail-two-col">
+          <img src="${project.images[3]}" alt="${project.title}" />
+          <img src="${project.images[4]}" alt="${project.title}" />
+        </section>
+        <section class="detail-block detail-full">
+          <img src="${project.images[5]}" alt="${project.title}" />
+        </section>
+      `;
+    }
+
     function openProject(projectId) {
       const project = projectData[projectId];
       if (!project) return;
@@ -929,7 +974,9 @@ A more detailed project narrative, credits, campaign notes and additional media 
                   ? renderOldPulteneyDetail(project)
                   : project.type === 'custom-skyline'
                     ? renderSkylineDetail(project)
-                    : renderGenericDetail(project);
+                    : project.type === 'custom-fsyll'
+                      ? renderFSYLLDetail(project)
+                      : renderGenericDetail(project);
       setActiveLink(projectId);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       const textTarget = detailShell.querySelector('[data-text-file]');

@@ -581,7 +581,18 @@ SEROVA × Ziyu | Be With Ziyu, Comfort & Style`,
         ]
       },
       'project-2': { title: 'Flyco | Wang Yibo', hero: 'flyco_01-ezgif.com-gif-to-webp-converter.webp' },
-      'project-3': { title: 'AIR&A-lin | 《Skyline》', hero: 'A_lin_air_01-ezgif.com-gif-to-webp-converter.webp' },
+      'project-3': {
+        title: 'AIR&A-lin | 《Skyline》',
+        hero: 'skyline/A_lin_air_01-ezgif.com-gif-to-webp-converter.webp',
+        type: 'custom-skyline',
+        textFile: 'skyline/skyline.txt',
+        videoUrl: 'https://res.cloudinary.com/dgbimi7vj/video/upload/v1774341582/%E5%A4%A9%E9%99%85%E7%BA%BF-%E6%9C%89%E5%AD%97%E5%B9%95-com_gtlbm5.mp4',
+        images: [
+          'skyline/skyline_03-ezgif.com-gif-to-webp-converter.webp',
+          'skyline/skyline_01-ezgif.com-gif-to-webp-converter.webp',
+          'skyline/skyline_02-ezgif.com-gif-to-webp-converter.webp'
+        ]
+      },
       'project-4': {
         title: 'Apple | Wang Feifei 《Runaway》',
         hero: 'apple/RUNAWAY_MV_4K_MOV_1219.mov.00_00_00_07.Still002.webp',
@@ -874,6 +885,30 @@ A more detailed project narrative, credits, campaign notes and additional media 
       `;
     }
 
+    function renderSkylineDetail(project) {
+      return `
+        <a class="detail-back js-back">← Back to gallery</a>
+        <section class="detail-intro detail-block">
+          <div>
+            <h1 class="detail-heading">${project.title}</h1>
+            <div class="detail-hero"><img src="${project.hero}" alt="${project.title}" /></div>
+          </div>
+          <div class="detail-copy" data-text-file="${project.textFile}">Loading text...</div>
+        </section>
+        <section class="detail-block detail-video-placeholder">
+          <video src="${project.videoUrl}" controls playsinline preload="metadata"></video>
+          <div class="detail-video-label">Campaign video</div>
+        </section>
+        <section class="detail-block detail-full">
+          <img src="${project.images[0]}" alt="${project.title}" />
+        </section>
+        <section class="detail-block detail-two-col">
+          <img src="${project.images[1]}" alt="${project.title}" />
+          <img src="${project.images[2]}" alt="${project.title}" />
+        </section>
+      `;
+    }
+
     function openProject(projectId) {
       const project = projectData[projectId];
       if (!project) return;
@@ -892,9 +927,18 @@ A more detailed project narrative, credits, campaign notes and additional media 
                 ? renderAppleDetail(project)
                 : project.type === 'custom-oldpulteney'
                   ? renderOldPulteneyDetail(project)
-                  : renderGenericDetail(project);
+                  : project.type === 'custom-skyline'
+                    ? renderSkylineDetail(project)
+                    : renderGenericDetail(project);
       setActiveLink(projectId);
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      const textTarget = detailShell.querySelector('[data-text-file]');
+      if (textTarget) {
+        fetch(textTarget.dataset.textFile)
+          .then((res) => res.ok ? res.text() : Promise.reject(new Error('Failed to load text')))
+          .then((text) => { textTarget.textContent = text; })
+          .catch(() => { textTarget.textContent = 'Text unavailable.'; });
+      }
       const back = detailShell.querySelector('.js-back');
       if (back) back.addEventListener('click', showHome);
       if (mobileMenu) {

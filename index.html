@@ -644,7 +644,23 @@ Client: Apple`,
         ]
       },
       'project-8': { title: 'Panasonic | heater 2025', hero: 'panasonic_01.png' },
-      'project-10': { title: 'Angela Chang | "Miguang World Tour"', hero: 'ZSH_LONG_01.jpg' },
+      'project-10': {
+        title: 'Angela Chang | "Miguang World Tour"',
+        hero: 'zzh/miguang_01-ezgif.com-optiwebp.webp',
+        type: 'custom-miguang',
+        textFile: 'zzh/zzh.md',
+        videoUrl: 'https://res.cloudinary.com/dgbimi7vj/video/upload/v1774424156/redpandacompress_pt1_l4smw1.mp4',
+        videoUrl2: 'https://res.cloudinary.com/dgbimi7vj/video/upload/v1774424286/redpandacompress_pt2_c3dm6e.mp4',
+        images: [
+          'zzh/miguang_02-ezgif.com-optiwebp.webp',
+          'zzh/miguang_03-ezgif.com-optiwebp.webp',
+          'zzh/miguang_04-ezgif.com-optiwebp.webp',
+          'zzh/miguang_05-ezgif.com-optiwebp.webp',
+          'zzh/miguang_06-ezgif.com-optiwebp.webp',
+          'zzh/miguang_07-ezgif.com-optiwebp.webp',
+          'zzh/miguang_08-ezgif.com-optiwebp.webp'
+        ]
+      },
       'project-11': {
         title: 'LININIG | LIREN 5V2',
         hero: 'liren5v2/1.png',
@@ -954,6 +970,42 @@ A more detailed project narrative, credits, campaign notes and additional media 
       `;
     }
 
+    function renderMiguangDetail(project) {
+      return `
+        <a class="detail-back js-back">← Back to gallery</a>
+        <section class="detail-intro detail-block">
+          <div>
+            <h1 class="detail-heading">${project.title}</h1>
+            <div class="detail-hero"><img src="${project.hero}" alt="${project.title}" /></div>
+          </div>
+          <div class="detail-copy" data-text-file="${project.textFile}">Loading text...</div>
+        </section>
+        <section class="detail-block detail-video-placeholder">
+          <video src="${project.videoUrl}" controls playsinline preload="metadata"></video>
+          <div class="detail-video-label">Campaign video</div>
+        </section>
+        <section class="detail-block detail-full">
+          <img src="${project.images[0]}" alt="${project.title}" />
+        </section>
+        <section class="detail-block detail-two-col">
+          <img src="${project.images[1]}" alt="${project.title}" />
+          <img src="${project.images[2]}" alt="${project.title}" />
+        </section>
+        <section class="detail-block detail-video-placeholder">
+          <video src="${project.videoUrl2}" controls playsinline preload="metadata"></video>
+          <div class="detail-video-label">Campaign video</div>
+        </section>
+        <section class="detail-block detail-two-col">
+          <img src="${project.images[3]}" alt="${project.title}" />
+          <img src="${project.images[4]}" alt="${project.title}" />
+        </section>
+        <section class="detail-block detail-two-col">
+          <img src="${project.images[5]}" alt="${project.title}" />
+          <img src="${project.images[6]}" alt="${project.title}" />
+        </section>
+      `;
+    }
+
     function openProject(projectId) {
       const project = projectData[projectId];
       if (!project) return;
@@ -976,7 +1028,9 @@ A more detailed project narrative, credits, campaign notes and additional media 
                     ? renderSkylineDetail(project)
                     : project.type === 'custom-fsyll'
                       ? renderFSYLLDetail(project)
-                      : renderGenericDetail(project);
+                      : project.type === 'custom-miguang'
+                        ? renderMiguangDetail(project)
+                        : renderGenericDetail(project);
       setActiveLink(projectId);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       const textTarget = detailShell.querySelector('[data-text-file]');

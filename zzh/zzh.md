@@ -1,0 +1,2 @@
+It’s such a pleasure to take on the CGI & AI production for the VCRs of Zhang Shaohan’s "Seeking Light" 2025 Tour! And this work has won many art awards at home and abroad 
+超荣幸承接张韶涵「觅光2025」巡回演唱会VCR的CGI及AI制作，作品还拿下了国内外多项艺术大奖，不负热爱，不负信任

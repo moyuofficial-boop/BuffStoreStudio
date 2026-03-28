@@ -680,7 +680,20 @@ Client: Apple`,
           'liren5v2/8.png'
         ]
       },
-      'project-12': { title: 'Angela Chang | "Muggle"', hero: 'ZSH_LONG_02.jpg' },
+      'project-12': {
+        title: 'Angela Chang | "Muggle"',
+        hero: 'zzh2/ZSH_07.webp',
+        type: 'custom-muggle',
+        textFile: 'zzh2/zzh2.md',
+        videoUrl: 'https://res.cloudinary.com/dgbimi7vj/video/upload/v1774683099/%E5%BC%A0%E9%9F%B6%E6%B6%B5_%E9%BA%BB%E7%93%9C_%E9%9F%B3%E4%B9%90%E5%89%A7%E6%83%85%E7%9F%AD%E7%89%87-%E9%9F%B3%E4%B9%90-%E5%A3%B0%E9%9F%B3-MV%E8%A7%86%E9%A2%91-%E6%96%B0%E7%89%87%E5%9C%BA_1_dm3nvz.mp4',
+        images: [
+          'zzh2/ZSH_09.webp',
+          'zzh2/ZSH_08.webp',
+          'zzh2/ZSH_010.webp',
+          'zzh2/ZSH_011.webp',
+          'zzh2/ZSH_LONG_02.webp'
+        ]
+      },
       'project-13': { title: 'AromeManpo', hero: 'FUYUMANPU.jpg' },
       'project-14': {
         title: 'OLD PULTENEY | AIGC',
@@ -1006,6 +1019,29 @@ A more detailed project narrative, credits, campaign notes and additional media 
       `;
     }
 
+    function renderMuggleDetail(project) {
+      const stacked = project.images.map((src) => `
+        <section class="detail-block detail-full">
+          <img src="${src}" alt="${project.title}" />
+        </section>`).join('');
+
+      return `
+        <a class="detail-back js-back">← Back to gallery</a>
+        <section class="detail-intro detail-block">
+          <div>
+            <h1 class="detail-heading">${project.title}</h1>
+            <div class="detail-hero"><img src="${project.hero}" alt="${project.title}" /></div>
+          </div>
+          <div class="detail-copy" data-text-file="${project.textFile}">Loading text...</div>
+        </section>
+        <section class="detail-block detail-video-placeholder">
+          <video src="${project.videoUrl}" controls playsinline preload="metadata"></video>
+          <div class="detail-video-label">Campaign video</div>
+        </section>
+        ${stacked}
+      `;
+    }
+
     function openProject(projectId) {
       const project = projectData[projectId];
       if (!project) return;
@@ -1030,7 +1066,9 @@ A more detailed project narrative, credits, campaign notes and additional media 
                       ? renderFSYLLDetail(project)
                       : project.type === 'custom-miguang'
                         ? renderMiguangDetail(project)
-                        : renderGenericDetail(project);
+                        : project.type === 'custom-muggle'
+                          ? renderMuggleDetail(project)
+                          : renderGenericDetail(project);
       setActiveLink(projectId);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       const textTarget = detailShell.querySelector('[data-text-file]');

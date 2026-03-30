@@ -720,6 +720,7 @@ Wishing Old Pulteney's Shenzhen event a complete success!祝富特尼深圳活�
         hero: 'lego/LEGO.mp4.00_00_40_25.Still004.webp',
         type: 'custom-lego',
         textFile: 'lego/lego.md',
+        videoUrl: 'https://res.cloudinary.com/dgbimi7vj/video/upload/v1774865182/LEGO_v3ymib.mp4',
         images: [
           'lego/LEGO.mp4.00_00_00_02.Still001.webp',
           'lego/LEGO.mp4.00_00_24_23.Still002.webp',
@@ -1067,6 +1068,10 @@ A more detailed project narrative, credits, campaign notes and additional media 
             <div class="detail-hero"><img src="${project.hero}" alt="${project.title}" /></div>
           </div>
           <div class="detail-copy" data-text-file="${project.textFile}">Loading text...</div>
+        </section>
+        <section class="detail-block detail-video-placeholder">
+          <video src="${project.videoUrl}" controls playsinline preload="metadata"></video>
+          <div class="detail-video-label">Campaign video</div>
         </section>
         <section class="detail-block detail-full">
           <img src="${project.images[0]}" alt="${project.title}" />

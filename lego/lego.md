@@ -1,0 +1,4 @@
+We are incredibly honored to take on this overseas LEGO project, our second international production. We greatly appreciate the trust placed in us. The entire film was created using a combination of 3D and AIGC technologies, with AIGC accounting for over 85% of the production. 3D was used for basic white-blocking and positioning, which significantly improved delivery efficiency. The full project was completed and delivered within just one week—far faster than the traditional full 3D pipeline, which typically takes up to a month to produce.
+我们十分荣幸承接本次海外乐高项目，这也是我方的第二部海外作品，由衷感谢客户的信任。全片采用三维与 AIGC 技术结合制作，其中 AIGC 占比高达 85% 以上；三维主要用于基础白膜定位，以此大幅提升出片效率。整部作品仅在一周内便快速完成并交付，相较传统三维全流程效率提升显著，传统制作模式往往需要长达一个月的周期。
+CGI/AI Production: BuffStore Studio
+CGI/AI 制作：BuffStore Studio

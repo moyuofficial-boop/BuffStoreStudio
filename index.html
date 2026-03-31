@@ -303,9 +303,47 @@
       gap: 16px;
     }
 
+    .allprojects-heading {
+      margin-bottom: 26px;
+      font-size: 28px;
+      line-height: 1.08;
+    }
+
     .detail-stack {
       display: grid;
       gap: 16px;
+    }
+
+    .allprojects-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px 18px;
+      align-items: start;
+    }
+
+    .video-card {
+      display: block;
+    }
+
+    .video-thumb,
+    .video-thumb img,
+    .video-thumb video {
+      width: 100%;
+      display: block;
+    }
+
+    .video-meta {
+      margin-top: 10px;
+      color: var(--muted);
+      line-height: 1.28;
+      font-size: 14px;
+    }
+
+    .video-meta .cn {
+      display: block;
+      font-size: 12px;
+      line-height: 1.24;
+      color: var(--soft);
     }
 
     .mobile-header { display: none; }
@@ -328,6 +366,12 @@
         --gallery-scale: 0.72;
         --grid-gap-x: 52px;
         --grid-gap-y: 74px;
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .allprojects-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
@@ -406,6 +450,10 @@
       }
       .detail-heading { font-size: 24px; }
       .detail-two-col { grid-template-columns: 1fr; }
+      .allprojects-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px 14px;
+      }
       .detail-block { margin-bottom: 28px; }
     }
   </style>
@@ -540,6 +588,10 @@
 
       <section class="view" id="detailView">
         <div class="detail-shell" id="detailShell"></div>
+      </section>
+
+      <section class="view" id="allProjectsView">
+        <div class="detail-shell" id="allProjectsShell"></div>
       </section>
     </main>
   </div>
@@ -732,17 +784,54 @@ Wishing Old Pulteney's Shenzhen event a complete success!祝富特尼深圳活�
 
     const homeView = document.getElementById('homeView');
     const detailView = document.getElementById('detailView');
+    const allProjectsView = document.getElementById('allProjectsView');
     const detailShell = document.getElementById('detailShell');
+    const allProjectsShell = document.getElementById('allProjectsShell');
     const heroTitle = document.getElementById('heroTitle');
     const mobileToggle = document.getElementById('mobileToggle');
     const mobileMenu = document.getElementById('mobileMenu');
     const navLinks = Array.from(document.querySelectorAll('.js-project-link'));
     const homeLinks = Array.from(document.querySelectorAll('.js-home'));
 
+    const allProjectsData = [
+      { title: 'LEGO | AIGC Production', cn: '乐高｜AIGC 制作', thumb: 'lego/LEGO.mp4.00_00_40_25.Still004.webp' },
+      { title: 'Cash App | RB2026', cn: 'Cash App | 红牛F1车队', thumb: 'VCARB2026/CASH APP_RB_long.webp' },
+      { title: 'LINING | LIREN 6', cn: '李宁 | 利刃6', thumb: 'liren6/1.webp' },
+      { title: 'OLD PULTENEY | AIGC', cn: '富特尼｜AIGC 制作', thumb: 'ftn/微信图片_20260318010250_1548_3240.webp' },
+      { title: 'Serova | Ziyu', cn: '施洛华 | 子瑜', thumb: 'Serova_01-ezgif.com-gif-to-webp-converter.webp' },
+      { title: 'LININIG | LIREN 5V2', cn: '李宁 | 利刃5V2', thumb: 'liren5v2/1.png' },
+      { title: 'AIR&A-lin | 《Skyline》', cn: '天际线', thumb: 'skyline/A_lin_air_01-ezgif.com-gif-to-webp-converter.webp' },
+      { title: 'Apple | Wang Feifei 《Runaway》', cn: '苹果 | 王菲菲 Runaway', thumb: 'apple/RUNAWAY_MV_4K_MOV_1219.mov.00_00_00_07.Still002.webp' },
+      { title: 'Fu Sheng Yi Ling Long | Luo Yunxi', cn: '浮生忆玲珑 | 罗云熙', thumb: 'FSYLL/FSYLL_01v2-ezgif.com-gif-to-webp-converter.webp' },
+      { title: 'Angela Chang | "Miguang World Tour"', cn: '张韶涵 | 「觅光世界巡演」', thumb: 'zzh/miguang_01-ezgif.com-optiwebp.webp' },
+      { title: 'Angela Chang | "Muggle"', cn: '张韶涵 | 「麻瓜」', thumb: 'zzh2/ZSH_07.webp' },
+      { title: 'Panasonic | heater 2025', cn: '松下 | 2025款暖风机', thumb: 'panasonic_01.png' },
+      { title: 'Flyco | Wang Yibo', cn: '飞科 | 王一博', thumb: 'flyco_01-ezgif.com-gif-to-webp-converter.webp' },
+      { title: 'AromeManpo', cn: '馥郁满铺', thumb: 'FUYUMANPU.jpg' },
+      { title: 'McDonald’s | The Powerpuff Girls', cn: '麦当劳 | 飞天小女警', thumb: 'mcd01_LONG_.jpg' }
+    ];
+
     function setActiveLink(projectId) {
       navLinks.forEach(link => {
         link.classList.toggle('active', link.dataset.project === projectId);
       });
+    }
+
+    function renderAllProjectsPage() {
+      const cards = allProjectsData.map(item => `
+        <article class="video-card">
+          <div class="video-thumb">
+            <img src="${item.thumb}" alt="${item.title}" />
+          </div>
+          <div class="video-meta">${item.title}<span class="cn">${item.cn}</span></div>
+        </article>
+      `).join('');
+
+      return `
+        <a class="detail-back js-back-home">← Back to gallery</a>
+        <h1 class="allprojects-heading">All Projects</h1>
+        <section class="allprojects-grid">${cards}</section>
+      `;
     }
 
     function renderGenericDetail(project) {
@@ -1091,6 +1180,7 @@ A more detailed project narrative, credits, campaign notes and additional media 
       if (!project) return;
       heroTitle.style.display = 'none';
       homeView.classList.remove('active');
+      allProjectsView.classList.remove('active');
       detailView.classList.add('active');
       detailShell.innerHTML = project.type === 'custom-liren6'
         ? renderLiren6Detail(project)
@@ -1135,8 +1225,28 @@ A more detailed project narrative, credits, campaign notes and additional media 
       }
     }
 
+    function openAllProjects() {
+      heroTitle.style.display = 'none';
+      homeView.classList.remove('active');
+      detailView.classList.remove('active');
+      allProjectsView.classList.add('active');
+      allProjectsShell.innerHTML = renderAllProjectsPage();
+      setActiveLink('');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const back = allProjectsShell.querySelector('.js-back-home');
+      if (back) back.addEventListener('click', showHome);
+      if (mobileMenu) {
+        mobileMenu.classList.remove('open');
+        if (mobileToggle) {
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileToggle.textContent = 'Menu';
+        }
+      }
+    }
+
     function showHome() {
       detailView.classList.remove('active');
+      allProjectsView.classList.remove('active');
       homeView.classList.add('active');
       heroTitle.style.display = 'block';
       setActiveLink('');
@@ -1160,7 +1270,7 @@ A more detailed project narrative, credits, campaign notes and additional media 
     homeLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        showHome();
+        openAllProjects();
       });
     });
 

@@ -403,8 +403,24 @@
         font: inherit;
         cursor: pointer;
       }
-      .mobile-menu { display: none; padding-top: 14px; }
-      .mobile-menu.open { display: block; }
+      .mobile-menu {
+        display: none;
+        padding-top: 14px;
+      }
+      .mobile-menu.open {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.985);
+        padding: 22px 18px 28px;
+        overflow-y: auto;
+      }
+      .mobile-menu-close {
+        display: inline-block;
+        margin-bottom: 20px;
+        cursor: pointer;
+      }
       .mobile-menu .nav-group { margin-bottom: 24px; }
       .mobile-menu .sidebar-footer { padding-top: 12px; }
       .hero-title {
@@ -468,6 +484,7 @@
       <button class="mobile-toggle" id="mobileToggle" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
     </div>
     <div class="mobile-menu" id="mobileMenu">
+      <button class="mobile-menu-close" id="mobileMenuClose">Close</button>
       <div class="nav-group">
         <div class="group-title">BuffTool | AIGC 工具</div>
       </div>
@@ -802,6 +819,7 @@ Wishing Old Pulteney's Shenzhen event a complete success!祝富特尼深圳活�
     const heroTitle = document.getElementById('heroTitle');
     const mobileToggle = document.getElementById('mobileToggle');
     const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
     const navLinks = Array.from(document.querySelectorAll('.js-project-link'));
     const homeLinks = Array.from(document.querySelectorAll('.js-home'));
     const allProjectsLinks = Array.from(document.querySelectorAll('.js-allprojects'));
@@ -1188,6 +1206,7 @@ Client: TBA</div></div>
       if (back) back.addEventListener('click', showHome);
       if (mobileMenu) {
         mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
         if (mobileToggle) {
           mobileToggle.setAttribute('aria-expanded', 'false');
           mobileToggle.textContent = 'Menu';
@@ -1207,6 +1226,7 @@ Client: TBA</div></div>
       if (back) back.addEventListener('click', showHome);
       if (mobileMenu) {
         mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
         if (mobileToggle) {
           mobileToggle.setAttribute('aria-expanded', 'false');
           mobileToggle.textContent = 'Menu';
@@ -1223,6 +1243,7 @@ Client: TBA</div></div>
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (mobileMenu) {
         mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
         if (mobileToggle) {
           mobileToggle.setAttribute('aria-expanded', 'false');
           mobileToggle.textContent = 'Menu';
@@ -1256,7 +1277,17 @@ Client: TBA</div></div>
         const open = mobileMenu.classList.toggle('open');
         mobileToggle.setAttribute('aria-expanded', String(open));
         mobileToggle.textContent = open ? 'Close' : 'Menu';
+        document.body.style.overflow = open ? 'hidden' : '';
       });
+
+      if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileToggle.textContent = 'Menu';
+          document.body.style.overflow = '';
+        });
+      }
     }
 
     const cards = document.querySelectorAll('.work-card');

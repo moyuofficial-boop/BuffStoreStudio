@@ -1,0 +1,2 @@
+Thrilled to continue collaborating with Shanghai Kuiyou and Director Zou Fei in 2026. We delivered a full AIGC+CGI pipeline, completing two films in just two weeks — one per week on average, extremely fast and efficient. Traditional 3D has not been eliminated; instead, it has become the most reliable and controllable foundation for production.
+很高兴 2026 年继续与上海葵友及邹飞导演深度合作。本次采用 AIGC+CGI 全流程制作，仅两周便完成两部影片，平均一周一部，极速高效。传统三维技术并未被淘汰，反而成为制作中最稳定、可控的核心环节。

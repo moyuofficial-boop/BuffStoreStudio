@@ -579,4 +579,119 @@
       const cards = allProjectsData.map(item => `
         <article class="video-card">
           <div class="video-thumb" data-video-card>
-            <button class="video-poster
+            <button class="video-poster" data-video-src="${item.video}" aria-label="Play ${item.title}">
+              <img loading="lazy" decoding="async" src="${item.thumb}" alt="${item.title}">
+            </button>
+          </div>
+          <div class="video-meta">${item.title}<span class="cn">${item.cn}</span></div>
+        </article>`).join('');
+      return `<a class="detail-back js-back-home">← Back to gallery</a><h1 class="allprojects-heading">All Projects</h1><section class="allprojects-grid">${cards}</section>`;
+    }
+
+    function wireTextFile(container) {
+      const t = container.querySelector('[data-text-file]');
+      if (!t) return;
+      fetch(t.dataset.textFile)
+        .then(res => res.ok ? res.text() : Promise.reject())
+        .then(text => { t.textContent = text; })
+        .catch(() => { t.textContent = 'Text unavailable.'; });
+    }
+
+    function bindAllProjectsVideos() {
+      allProjectsShell.querySelectorAll('[data-video-src]').forEach(button => {
+        button.addEventListener('click', () => {
+          const wrapper = button.closest('[data-video-card]');
+          if (!wrapper) return;
+          wrapper.innerHTML = `<video src="${button.dataset.videoSrc}" controls playsinline preload="none" autoplay></video>`;
+        }, { once: true });
+      });
+    }
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+      mobileToggle.setAttribute('aria-expanded', 'false');
+      mobileToggle.textContent = 'Menu';
+    }
+
+    function showHome() {
+      detailView.classList.remove('active');
+      allProjectsView.classList.remove('active');
+      homeView.classList.add('active');
+      heroTitle.style.display = 'block';
+      setActiveLink('');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      closeMobileMenu();
+    }
+
+    function openProject(projectId) {
+      const project = projectData[projectId];
+      if (!project) return;
+      heroTitle.style.display = 'none';
+      homeView.classList.remove('active');
+      allProjectsView.classList.remove('active');
+      detailView.classList.add('active');
+      detailShell.innerHTML = renderDetail(project);
+      wireTextFile(detailShell);
+      setActiveLink(projectId);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const back = detailShell.querySelector('.js-back');
+      if (back) back.addEventListener('click', showHome);
+      closeMobileMenu();
+    }
+
+    function openAllProjects() {
+      heroTitle.style.display = 'none';
+      homeView.classList.remove('active');
+      detailView.classList.remove('active');
+      allProjectsView.classList.add('active');
+      allProjectsShell.innerHTML = renderAllProjectsPage();
+      bindAllProjectsVideos();
+      setActiveLink('');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const back = allProjectsShell.querySelector('.js-back-home');
+      if (back) back.addEventListener('click', showHome);
+      closeMobileMenu();
+    }
+
+    desktopNavMount.innerHTML = buildNavHTML();
+    mobileNavMount.innerHTML = buildNavHTML();
+    homeLeft.innerHTML = buildHomeColumn(homeLeftIds);
+    homeRight.innerHTML = buildHomeColumn(homeRightIds);
+
+    document.querySelectorAll('.js-project-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        openProject(link.dataset.project);
+      });
+    });
+    document.querySelectorAll('.js-home').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        showHome();
+      });
+    });
+    document.querySelectorAll('.js-allprojects').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        openAllProjects();
+      });
+    });
+
+    mobileToggle.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      mobileToggle.setAttribute('aria-expanded', String(open));
+      mobileToggle.textContent = open ? 'Close' : 'Menu';
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    mobileMenuClose.addEventListener('click', closeMobileMenu);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('in-view');
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.work-card').forEach(card => observer.observe(card));
+  </script>
+</body>
+</html>

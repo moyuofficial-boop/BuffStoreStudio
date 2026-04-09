@@ -577,8 +577,8 @@
           ${copy}
         </section>`;
 
-      if (project.video1) html += `<section class="detail-block detail-video-placeholder"><video src="${project.video1}" controls playsinline preload="none"></video><div class="detail-video-label">Campaign video</div></section>`;
-      if (project.video2) html += `<section class="detail-block detail-video-placeholder"><video src="${project.video2}" controls playsinline preload="none"></video><div class="detail-video-label">Campaign video</div></section>`;
+      if (project.video1) html += `<section class="detail-block detail-video-placeholder"><video src="${project.video1}" controls playsinline preload="metadata"></video><div class="detail-video-label">Campaign video</div></section>`;
+      if (project.video2) html += `<section class="detail-block detail-video-placeholder"><video src="${project.video2}" controls playsinline preload="metadata"></video><div class="detail-video-label">Campaign video</div></section>`;
 
       if (project.type === 'muggle' || project.type === 'anmuxi') html += renderMediaStack(project.stack, true);
       else if (project.type === 'cashapp') html += renderMediaStack([...project.stack].sort(() => Math.random() - 0.5), false);

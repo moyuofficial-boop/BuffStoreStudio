@@ -368,22 +368,23 @@
       }
       .works-col { display: contents; }
       .works-col.right { padding-top: 0; }
-      #project-16 { order: 1; }
-      #project-0 { order: 2; }
-      #project-7 { order: 3; }
-      #project-14 { order: 4; }
-      #project-1 { order: 5; }
-      #project-15 { order: 6; }
-      #project-11 { order: 7; }
-      #project-3 { order: 8; }
-      #project-4 { order: 9; }
-      #project-6 { order: 10; }
-      #project-10 { order: 11; }
-      #project-12 { order: 12; }
-      #project-8 { order: 13; }
-      #project-2 { order: 14; }
-      #project-13 { order: 15; }
-      #project-5 { order: 16; }
+      #project-17 { order: 1; }
+      #project-16 { order: 2; }
+      #project-0 { order: 3; }
+      #project-7 { order: 4; }
+      #project-14 { order: 5; }
+      #project-1 { order: 6; }
+      #project-15 { order: 7; }
+      #project-11 { order: 8; }
+      #project-3 { order: 9; }
+      #project-4 { order: 10; }
+      #project-6 { order: 11; }
+      #project-10 { order: 12; }
+      #project-12 { order: 13; }
+      #project-8 { order: 14; }
+      #project-2 { order: 15; }
+      #project-13 { order: 16; }
+      #project-5 { order: 17; }
       .work-media, .work-media.w-1, .work-media.w-2, .work-media.w-3, .work-media.w-4, .work-media.w-5, .work-media.w-6, .work-media.w-7 { width: 100%; }
       .detail-intro {
         grid-template-columns: 1fr;
@@ -432,6 +433,7 @@
 
   <script>
     const navNew = [
+      { id: 'project-17', en: 'デコルテ | Decorte | 2026 AIGC', cn: '' },
       { id: 'project-16', en: 'ANMUXI | 2026', cn: '安慕希 ｜ 2026' },
       { id: 'project-15', en: 'LEGO | AIGC Production', cn: '乐高｜AIGC 制作' },
       { id: 'project-0', en: 'Cash App | RB2026', cn: 'Cash App | 红牛F1车队' },
@@ -452,10 +454,11 @@
       { id: 'project-5', en: 'McDonald’s | The Powerpuff Girls', cn: '麦当劳 | 飞天小女警' }
     ];
 
-    const homeLeftIds = ['project-16','project-0','project-14','project-1','project-15','project-3','project-6','project-12','project-2','project-5'];
+    const homeLeftIds = ['project-17','project-16','project-0','project-14','project-1','project-15','project-3','project-6','project-12','project-2','project-5'];
     const homeRightIds = ['project-7','project-11','project-4','project-10','project-8','project-13'];
 
     const galleryCards = {
+      'project-17': { title: 'デコルテ | Decorte | 2026 AIGC', cls: 'w-1', src: 'dk/cover.png' },
       'project-16': { title: 'ANMUXI | 2026', cls: 'w-1', src: 'anmuxi/安慕希 x 白鹿 仙侠大片精彩来袭-广告片-餐饮食品视频-新片场.mp4.00_00_28_02.Still002.webp' },
       'project-15': { title: 'LEGO | AIGC Production', cls: 'w-1', src: 'lego/LEGO.mp4.00_00_37_27.Still003.webp' },
       'project-0': { title: 'Cash App | RB2026', cls: 'w-1', src: 'VCARB2026/CASH APP_RB_long.webp' },
@@ -490,6 +493,7 @@
       'project-13': { title: 'AromeManpo', hero: 'FUYUMANPU.jpg', type: 'generic' },
       'project-14': { title: 'OLD PULTENEY | AIGC', hero: 'ftn/微信图片_20260318010250_1548_3240.webp', type: 'oldpulteney', introText: `We recently completed the full production of the Old Pulteney whisky commercial using an end-to-end AI workflow, transforming the uncontrollable links in film and television advertising into controllable, reusable and reliably deliverable processes.\nWhile the traditional production cycle takes one month, the AI workflow only requires 4 days, reducing overall production costs by 50%.\nThe end-to-end commercialization process for AI advertising has now been fully implemented, striking a balance between quality and efficiency ⚖️\nWishing Old Pulteney's Shenzhen event a complete success!祝富特尼深圳活动圆满成功！`, video1: 'https://res.cloudinary.com/dgbimi7vj/video/upload/v1773764329/0313%E5%AF%8C%E7%89%B9%E5%B0%BCfinal_onz2fs.mp4', stack: ['ftn/微信图片_20260318010329_1554_3240.webp','ftn/微信图片_20260318010303_1552_3240.webp','ftn/微信图片_20260318010345_1559_3240.webp','ftn/微信图片_20260318010343_1557_3240.webp'] },
       'project-15': { title: 'LEGO | AIGC Production', hero: 'lego/LEGO.mp4.00_00_40_25.Still004.webp', type: 'lego', textFile: 'lego/lego.md', video1: 'https://res.cloudinary.com/dgbimi7vj/video/upload/v1774865182/LEGO_v3ymib.mp4', stack: ['lego/LEGO.mp4.00_00_00_02.Still001.webp','lego/LEGO.mp4.00_00_24_23.Still002.webp','lego/LEGO.mp4.00_00_37_27.Still003.webp','lego/LEGO.mp4.00_00_50_02.Still005.webp'] },
+      'project-17': { title: 'デコルテ | Decorte | 2026 AIGC', hero: 'dk/1-ezgif.com-gif-to-webp-converter.webp', type: 'textfile-video', textFile: 'dk/dk.md', video1: 'https://res.cloudinary.com/dgbimi7vj/video/upload/v1777356601/%E9%BB%9B%E7%8F%82_ng5llh.mov', stack: ['dk/2-ezgif.com-gif-to-webp-converter.webp','dk/3-ezgif.com-gif-to-webp-converter.webp','dk/4-ezgif.com-gif-to-webp-converter.webp','dk/5-ezgif.com-gif-to-webp-converter.webp','dk/6-ezgif.com-gif-to-webp-converter.webp'] },
       'project-16': { title: 'ANMUXI | 2026', hero: 'anmuxi/X---_1-ezgif.com-gif-to-webp-converter.webp', type: 'anmuxi', textFile: 'anmuxi/anmuxi.md', video1: 'https://res.cloudinary.com/dgbimi7vj/video/upload/v1775201733/%E5%AE%89%E6%85%95%E5%B8%8C_x_%E7%99%BD%E9%B9%BF_%E4%BB%99%E4%BE%A0%E5%A4%A7%E7%89%87%E7%B2%BE%E5%BD%A9%E6%9D%A5%E8%A2%AD-%E5%B9%BF%E5%91%8A%E7%89%87-%E9%A4%90%E9%A5%AE%E9%A3%9F%E5%93%81%E8%A7%86%E9%A2%91-%E6%96%B0%E7%89%87%E5%9C%BA_vbulsg.mp4', video2: 'https://res.cloudinary.com/dgbimi7vj/video/upload/v1774948948/%E4%B8%8A%E6%B5%B7%E8%91%B5%E5%8F%8B_%E5%AE%89%E6%85%95%E5%B8%8C%E6%95%B4%E9%A2%97%E8%93%9D%E8%8E%93%E9%85%B8%E5%A5%B6_X_%E5%AE%8B%E9%9B%A8%E7%90%A6-%E5%B9%BF%E5%91%8A%E7%89%87-%E9%A4%90%E9%A5%AE%E9%A3%9F%E5%93%81%E8%A7%86%E9%A2%91-%E6%96%B0%E7%89%87%E5%9C%BA_r3awgu.mp4', stack: ['anmuxi/安慕希 x 白鹿 仙侠大片精彩来袭-广告片-餐饮食品视频-新片场.mp4.00_00_15_03.Still001.webp','anmuxi/安慕希 x 白鹿 仙侠大片精彩来袭-广告片-餐饮食品视频-新片场.mp4.00_00_28_02.Still002.webp','anmuxi/安慕希 x 白鹿 仙侠大片精彩来袭-广告片-餐饮食品视频-新片场.mp4.00_00_48_03.Still003.webp','anmuxi/上海葵友 安慕希整颗蓝莓酸奶 X 宋雨琦-广告片-餐饮食品视频-新片场.mp4.00_00_25_16.Still003.webp','anmuxi/X---_1-ezgif.com-gif-to-webp-converter.webp','anmuxi/上海葵友 安慕希整颗蓝莓酸奶 X 宋雨琦-广告片-餐饮食品视频-新片场.mp4.00_00_13_07.Still007.webp','anmuxi/上海葵友 安慕希整颗蓝莓酸奶 X 宋雨琦-广告片-餐饮食品视频-新片场.mp4.00_00_26_09.Still004.webp','anmuxi/x---_1-ezgif.com-gif-to-webp-converter.webp','anmuxi/x----ezgif.com-gif-to-webp-converter.webp','anmuxi/x---_2-ezgif.com-gif-to-webp-converter.webp'] }
     };
 

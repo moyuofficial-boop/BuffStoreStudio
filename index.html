@@ -666,8 +666,10 @@
     function mount() {
       desktopNavMount.innerHTML = renderNav();
       mobileNavMount.innerHTML = renderNav();
-      homeLeft.innerHTML = Object.keys(GALLERY).filter(id => GALLERY[id].col === 'left').map(renderHomeCard).join('');
-      homeRight.innerHTML = Object.keys(GALLERY).filter(id => GALLERY[id].col === 'right').map(renderHomeCard).join('');
+      const homeLeftOrder = ['project-18','project-17','project-16','project-15','project-0','project-14','project-1','project-3','project-6','project-12','project-2','project-5'];
+      const homeRightOrder = ['project-7','project-11','project-4','project-10','project-8','project-13'];
+      homeLeft.innerHTML = homeLeftOrder.map(renderHomeCard).join('');
+      homeRight.innerHTML = homeRightOrder.map(renderHomeCard).join('');
 
       document.querySelectorAll('.js-project-link').forEach(link => link.addEventListener('click', (e) => {
         e.preventDefault();

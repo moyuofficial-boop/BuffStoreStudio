@@ -174,6 +174,13 @@
       line-height: 1.14;
     }
     .work-media { width: 100%; max-width: 100%; }
+    .work-card.home-small .work-media {
+      transform: scale(var(--home-image-scale, 1));
+      transform-origin: top left;
+    }
+    .work-card.home-small {
+      min-height: 40px;
+    }
     .work-media.w-1 { width: min(var(--w-1), 100%); }
     .work-media.w-2 { width: min(var(--w-2), 100%); }
     .work-media.w-3 { width: min(var(--w-3), 100%); }
@@ -399,25 +406,27 @@
       { id: 'project-5', en: 'McDonald’s | The Powerpuff Girls', cn: '麦当劳 | 飞天小女警' }
     ];
 
+    const HOME_IMAGE_SCALE = 0.82;
+
     const GALLERY = {
-      'project-17': { title: 'デコルテ | Decorte | 2026 AIGC', cls: 'w-1', src: 'dk/cover.png', col: 'left' },
-      'project-16': { title: 'ANMUXI | 2026', cls: 'w-1', src: 'anmuxi/安慕希 x 白鹿 仙侠大片精彩来袭-广告片-餐饮食品视频-新片场.mp4.00_00_28_02.Still002.webp', col: 'left' },
-      'project-15': { title: 'LEGO | AIGC Production', cls: 'w-1', src: 'lego/LEGO.mp4.00_00_37_27.Still003.webp', col: 'left' },
-      'project-0': { title: 'Cash App | RB2026', cls: 'w-1', src: 'VCARB2026/CASH APP_RB_long.webp', col: 'left' },
-      'project-7': { title: 'LINING | LIREN 6', cls: 'w-1', src: 'liren6_zong.jpg', col: 'right' },
-      'project-14': { title: 'OLD PULTENEY | AIGC', cls: 'w-1', src: 'ftn/微信图片_20260318010250_1548_3240.webp', col: 'left' },
-      'project-1': { title: 'Serova | Ziyu', cls: 'w-1', src: 'Serova_01-ezgif.com-gif-to-webp-converter.webp', col: 'left' },
-      'project-11': { title: 'LININIG | LIREN 5V2', cls: 'w-1', src: 'lining_liren5_02-ezgif.com-gif-to-webp-converter.webp', col: 'right' },
-      'project-3': { title: 'AIR&A-lin | 《Skyline》', cls: 'w-4', src: 'A_lin_air_01-ezgif.com-gif-to-webp-converter.webp', col: 'left' },
-      'project-4': { title: 'Apple | Wang Feifei 《Runaway》', cls: 'w-3', src: 'RUNAWAY_MV_4K_MOV_1219-ezgif.com-gif-to-webp-converter.webp', col: 'right' },
-      'project-6': { title: 'Fu Sheng Yi Ling Long | Luo Yunxi', cls: 'w-5', src: 'FSYLL_long_01.png', col: 'left' },
-      'project-10': { title: 'Angela Chang | "Miguang World Tour"', cls: 'w-2', src: 'ZSH_LONG_01.jpg', col: 'right' },
-      'project-12': { title: 'Angela Chang | "Muggle"', cls: 'w-4', src: 'ZSH_LONG_02.jpg', col: 'left' },
-      'project-8': { title: 'Panasonic | heater 2025', cls: 'w-7', src: 'panasonic_01.png', col: 'right' },
-      'project-2': { title: 'Flyco | Wang Yibo', cls: 'w-2', src: 'flyco_01-ezgif.com-gif-to-webp-converter.webp', col: 'left' },
-      'project-13': { title: 'AromeManpo', cls: 'w-5', src: 'FUYUMANPU.jpg', col: 'right' },
-      'project-5': { title: 'McDonald’s | The Powerpuff Girls', cls: 'w-6', src: 'mcd01_LONG_.jpg', col: 'left' },
-      'project-18': { title: 'Zigzag Music video | Zaoan', cls: 'w-1', src: 'zaoan/4K带封面【成片】ZigZag 0521.mov.00_01_01_09.Still005.webp', col: 'left' }
+      'project-17': { title: 'デコルテ | Decorte | 2026 AIGC', cls: 'w-1', src: 'dk/cover.png', homeSrc: 'dk/cover.png', col: 'left' },
+      'project-16': { title: 'ANMUXI | 2026', cls: 'w-1', src: 'anmuxi/安慕希 x 白鹿 仙侠大片精彩来袭-广告片-餐饮食品视频-新片场.mp4.00_00_28_02.Still002.webp', homeSrc: 'anmuxi/安慕希 x 白鹿 仙侠大片精彩来袭-广告片-餐饮食品视频-新片场.mp4.00_00_28_02.Still002.webp', col: 'left' },
+      'project-15': { title: 'LEGO | AIGC Production', cls: 'w-1', src: 'lego/LEGO.mp4.00_00_37_27.Still003.webp', homeSrc: 'lego/LEGO.mp4.00_00_37_27.Still003.webp', col: 'left' },
+      'project-0': { title: 'Cash App | RB2026', cls: 'w-1', src: 'VCARB2026/CASH APP_RB_long.webp', homeSrc: 'VCARB2026/CASH APP_RB_long.webp', col: 'left' },
+      'project-7': { title: 'LINING | LIREN 6', cls: 'w-1', src: 'liren6_zong.jpg', homeSrc: 'liren6_zong.jpg', col: 'right' },
+      'project-14': { title: 'OLD PULTENEY | AIGC', cls: 'w-1', src: 'ftn/微信图片_20260318010250_1548_3240.webp', homeSrc: 'ftn/微信图片_20260318010250_1548_3240.webp', col: 'left' },
+      'project-1': { title: 'Serova | Ziyu', cls: 'w-1', src: 'Serova_01-ezgif.com-gif-to-webp-converter.webp', homeSrc: 'Serova_01-ezgif.com-gif-to-webp-converter.webp', col: 'left' },
+      'project-11': { title: 'LININIG | LIREN 5V2', cls: 'w-1', src: 'lining_liren5_02-ezgif.com-gif-to-webp-converter.webp', homeSrc: 'lining_liren5_02-ezgif.com-gif-to-webp-converter.webp', col: 'right' },
+      'project-3': { title: 'AIR&A-lin | 《Skyline》', cls: 'w-4', src: 'A_lin_air_01-ezgif.com-gif-to-webp-converter.webp', homeSrc: 'A_lin_air_01-ezgif.com-gif-to-webp-converter.webp', col: 'left' },
+      'project-4': { title: 'Apple | Wang Feifei 《Runaway》', cls: 'w-3', src: 'RUNAWAY_MV_4K_MOV_1219-ezgif.com-gif-to-webp-converter.webp', homeSrc: 'RUNAWAY_MV_4K_MOV_1219-ezgif.com-gif-to-webp-converter.webp', col: 'right' },
+      'project-6': { title: 'Fu Sheng Yi Ling Long | Luo Yunxi', cls: 'w-5', src: 'FSYLL_long_01.png', homeSrc: 'FSYLL_long_01.png', col: 'left' },
+      'project-10': { title: 'Angela Chang | "Miguang World Tour"', cls: 'w-2', src: 'ZSH_LONG_01.jpg', homeSrc: 'ZSH_LONG_01.jpg', col: 'right' },
+      'project-12': { title: 'Angela Chang | "Muggle"', cls: 'w-4', src: 'ZSH_LONG_02.jpg', homeSrc: 'ZSH_LONG_02.jpg', col: 'left' },
+      'project-8': { title: 'Panasonic | heater 2025', cls: 'w-7', src: 'panasonic_01.png', homeSrc: 'panasonic_01.png', col: 'right' },
+      'project-2': { title: 'Flyco | Wang Yibo', cls: 'w-2', src: 'flyco_01-ezgif.com-gif-to-webp-converter.webp', homeSrc: 'flyco_01-ezgif.com-gif-to-webp-converter.webp', col: 'left' },
+      'project-13': { title: 'AromeManpo', cls: 'w-5', src: 'FUYUMANPU.jpg', homeSrc: 'FUYUMANPU.jpg', col: 'right' },
+      'project-5': { title: 'McDonald’s | The Powerpuff Girls', cls: 'w-6', src: 'mcd01_LONG_.jpg', homeSrc: 'mcd01_LONG_.jpg', col: 'left' },
+      'project-18': { title: 'Zigzag Music video | Zaoan', cls: 'w-1', src: 'zaoan/4K带封面【成片】ZigZag 0521.mov.00_01_01_09.Still005.webp', homeSrc: 'zaoan/4K带封面【成片】ZigZag 0521.mov.00_01_01_09.Still005.webp', col: 'left' }
     };
 
     const PROJECTS = {
@@ -489,7 +498,11 @@
 
     function renderHomeCard(id) {
       const item = GALLERY[id];
-      return `<article class="work-card" id="${id}"><a class="js-project-link" data-project="${id}"><h2 class="work-title">${item.title}</h2><div class="work-media ${item.cls}"><img loading="lazy" decoding="async" src="${item.src}" alt="${item.title}"></div></a></article>`;
+      const coverSrc = item.homeSrc || item.src;
+      const eagerIds = new Set(['project-18', 'project-17']);
+      const loadingAttr = eagerIds.has(id) ? 'eager' : 'lazy';
+      const fetchPriority = eagerIds.has(id) ? 'high' : 'low';
+      return `<article class="work-card home-small" id="${id}" style="--home-image-scale:${HOME_IMAGE_SCALE}"><a class="js-project-link" data-project="${id}"><h2 class="work-title">${item.title}</h2><div class="work-media ${item.cls}"><img loading="${loadingAttr}" fetchpriority="${fetchPriority}" decoding="async" src="${coverSrc}" alt="${item.title}"></div></a></article>`;
     }
 
     function setActiveLink(projectId) {

@@ -387,9 +387,9 @@
 
   <script>
     const NAV_NEW = [
-      {"id":"project-21","en":"LINING | LIREN 7","cn":"李宁｜利刃7"},
-      {"id":"project-20","en":"PUBG × KUN | Campaign Film","cn":"PUBG × 蔡徐坤｜联名广告大片"},
       {"id":"project-19","en":"Jaeger-LeCoultre | 2026 Campaign","cn":"积家手表｜2026 广告大片"},
+      {"id":"project-20","en":"PUBG × KUN | Campaign Film","cn":"PUBG × 蔡徐坤｜联名广告大片"},
+      {"id":"project-21","en":"LINING | LIREN 7","cn":"李宁｜利刃7"},
       { id: 'project-18', en: 'Zigzag Music video | Zaoan', cn: 'Zigzag 音乐视频｜早安 Zaoan' },
       { id: 'project-17', en: 'デコルテ | Decorte | 2026 AIGC', cn: '黛珂 ｜ 2026 AIGC' },
       { id: 'project-16', en: 'ANMUXI | 2026', cn: '安慕希 ｜ 2026' },
@@ -696,7 +696,7 @@
     function mount() {
       desktopNavMount.innerHTML = renderNav();
       mobileNavMount.innerHTML = renderNav();
-      const homeLeftOrder = ['project-21','project-20','project-19','project-18','project-17','project-16','project-15','project-0','project-14','project-3','project-6','project-12','project-2','project-5'];
+      const homeLeftOrder = ['project-19','project-20','project-21','project-18','project-17','project-16','project-15','project-0','project-14','project-3','project-6','project-12','project-2','project-5'];
       const homeRightOrder = ['project-7','project-11','project-4','project-10','project-8','project-13'];
       homeLeft.innerHTML = homeLeftOrder.map(renderHomeCard).join('');
       homeRight.innerHTML = homeRightOrder.map(renderHomeCard).join('');

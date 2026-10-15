@@ -1,3 +1,2 @@
-很高兴为PUBG官方制作了和蔡徐坤联名的全新的视频，本次正片采用传统三维CGI和新AIGC制作；汽车替换和整体的建筑排布和摆放来自传统C4D+Ocatne渲染器的三维CGI流程，汽车的追车场景也采用三维CGI技术（白膜layout）和AIGC技术进行结合，整体是一个偏风格化的长片；
-全片百分之80都使用AIGC进行生成和制作；
+很高兴为PUBG官方制作了和蔡徐坤联名的全新的视频，本次正片采用传统三维CGI和新AIGC制作；汽车替换和整体的建筑排布和摆放来自传统C4D+Ocatne渲染器的三维CGI流程，汽车的追车场景也采用三维CGI技术（白膜layout）和AIGC技术进行结合，整体是一个偏风格化的长片；全片百分之80都使用AIGC进行生成和制作；
 We are delighted to have produced a brand-new video for PUBG in collaboration with Cai Xukun (KUN). This film was made using a blend of traditional 3D CGI and cutting-edge AIGC. The car replacements and the overall layout and placement of the buildings come from a traditional 3D CGI pipeline rendered with C4D + Octane; the car chase scenes likewise combine 3D CGI (white-model layout) with AIGC technology. The overall result is a stylized long-form film, with roughly 80% of the entire piece generated and produced through AIGC.

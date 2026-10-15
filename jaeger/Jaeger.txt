@@ -1,4 +1,2 @@
-很高兴和积家手表高奢产品进行合作，本次正片采用传统三维CGI和新AIGC制作；手表来自传统C4D+Ocatne渲染器的三维CGI流程，其他场景的镜面空间则采用三维CGI技术（白膜layout）和AIGC技术进行结合
-为整条全片增添不少闪光点；
-
+很高兴和积家手表高奢产品进行合作，本次正片采用传统三维CGI和新AIGC制作；手表来自传统C4D+Ocatne渲染器的三维CGI流程，其他场景的镜面空间则采用三维CGI技术（白膜layout）和AIGC技术进行结合，为整条全片增添不少闪光点；
 We are delighted to collaborate with Jaeger-LeCoultre on their high-end luxury timepieces. This film was produced using a blend of traditional 3D CGI and cutting-edge AIGC techniques. The watch itself comes from a traditional 3D CGI pipeline rendered with C4D + Octane, while the mirror-space scenes across the other shots combine 3D CGI (white-model layout) with AIGC technology — together adding a distinctive sparkle to the entire piece.

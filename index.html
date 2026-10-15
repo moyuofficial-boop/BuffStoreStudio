@@ -220,6 +220,7 @@
       white-space: pre-line;
       font-family: 'SpaceMonoCustom', 'Space Mono', monospace;
     }
+    .detail-copy-wide { max-width: none; width: 100%; }
     .detail-block { margin-bottom: 58px; }
     .detail-video-placeholder { position: relative; }
     .detail-video-label {
@@ -545,7 +546,7 @@
       if (project.videoFirst) {
         return `<a class="detail-back js-back">← Back to gallery</a>
           <h1 class="detail-heading">${project.title}</h1>
-          ${project.textFile ? `<section class="detail-block"><div class="detail-copy" data-text-file="${project.textFile}">Loading text...</div></section>` : ''}
+          ${project.textFile ? `<section class="detail-block"><div class="detail-copy detail-copy-wide" data-text-file="${project.textFile}">Loading text...</div></section>` : ''}
           <section class="detail-block"><video src="${project.video1}" controls playsinline preload="metadata"></video></section>
           ${project.mediaRows ? renderMediaRows(project.mediaRows) : mediaSections(project.stack, project.singleColumn)}`;
       }

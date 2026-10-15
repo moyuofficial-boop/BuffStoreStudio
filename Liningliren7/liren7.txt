@@ -1,4 +1,3 @@
 依然每年保留节目，感谢李宁的邀请帮助制作了李宁利刃全新一代利刃7；全片采用三维CGI鞋身模型加AIGC动效制作；鞋身采用三维扫描功能进行定位比例，传统雕刻手工建模后用AIGC进行渲染；
 相对于上一次的利刃6来说时间更加快，这个方式适用于短时间内需要出一个效果还不错的成片。
-
 It remains an annual tradition for us. We're grateful to Li-Ning for inviting us to help produce the all-new Li-Ning Blade 7 (利刃 7). The entire film combines 3D CGI shoe-body models with AIGC-driven motion effects. The shoe body is scanned in 3D to lock in proportions, then traditionally sculpted and hand-modeled before being rendered through AIGC. Compared with the previous Blade 6, the turnaround was much faster — this approach is well suited to producing a solid-looking final film within a tight deadline.

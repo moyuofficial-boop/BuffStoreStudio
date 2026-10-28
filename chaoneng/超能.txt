@@ -1,0 +1,6 @@
+和上海葵友制作公司合作制作了这部精良的超能洗衣液的广告，本次使用三维+AIGC全流程制作视频；
+AIGC职责负责背景输出，三维负责运镜跟踪和定位透视/角度等，Nuke合成负责将实拍和虚拟结合；
+We collaborated with Shanghai Kuiyou Production on this premium ad for Chaoneng Laundry Detergent. 
+The video was produced end-to-end with 3D + AIGC workflow.
+AIGC generates the background, 3D handles camera tracking, perspective and angle alignment, 
+and Nuke compositing merges live-action footage with virtual elements.
